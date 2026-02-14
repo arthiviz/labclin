@@ -1,16 +1,16 @@
-import Dashboard from "../components/dashboard"
-import TableDashboard from "../components/tableDashboard"
-import Tasks from "../components/Tasks"
+import Dashboard from "../components/dashboard/dashboard"
+import TableDashboard from "../components/tableDashboard/tableDashboard"
+import Tasks from "../components/tasks/Tasks"
 
 function Home(){
     return(
-        <div className="d-flex flex-column gap-5">
+        <div className="d-flex flex-column gap-5 min-vh-100">
             <Dashboard/>
             <div className="d-flex gap-4">
-                <div className="w-75">
+                <div style={{width: "65%"}}>
                      <TableDashboard/>
                 </div>
-                <div className="w-25">
+                <div style={{width: "35%"}}>
                     <Tasks/>
                 </div> 
             </div>

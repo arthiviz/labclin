@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "./NavBar";
+import NavBar from "../navBar/NavBar";
+import Footer from "../footer/Footer";
 
 function Layout() {
     return (
@@ -10,8 +11,9 @@ function Layout() {
             <main className="d-flex justify-content-center my-5">
                 <Outlet/>
             </main>
-            
-            
+            <footer className="w-100">
+                <Footer/>
+            </footer>
         </div>
     );
 }

@@ -1,0 +1,9 @@
+.cardClient{
+    width: 375px;
+    height: 150px;
+}
+
+.cardClient:hover {
+    transform: scale(1.10);
+    transition: transform 0.3s ease-in-out;
+}  
