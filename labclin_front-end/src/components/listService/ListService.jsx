@@ -11,6 +11,9 @@ const agendamentos = [
 
   return (
     <div className="d-flex flex-column gap-4">
+      <div className="d-flex justify-content-end align-items-center">
+        <button className="btn btn-danger"><i className="bi bi-plus"></i> Novo Atendimento</button>
+      </div>
       <div className="border border-2 shadow-sm p-3 rounded-3 bg-white">
         <div className="d-flex justify-content-between align-items-center ">
 
