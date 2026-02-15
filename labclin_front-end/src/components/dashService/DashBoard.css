@@ -1,0 +1,9 @@
+.cardService{
+    width: 240px;
+    height: 130px;
+}
+
+.cardService:hover {
+    transform: scale(1.10);
+    transition: transform 0.3s ease-in-out;
+}

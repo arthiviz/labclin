@@ -8,7 +8,7 @@ function Layout() {
             <div>
                 <NavBar/>
             </div>
-            <main className="d-flex justify-content-center py-5">
+            <main className="d-flex justify-content-center py-5 min-vh-100">
                 <Outlet/>
             </main>
             <footer className="w-100">
