@@ -3,7 +3,7 @@ import "./dashboard.css"
 function Dashboard() {
     return (
         <div className="d-flex flex-wrap align-items-evenly gap-4">
-            <div className="border border border-danger p-4 rounded-4 bg-white card">
+            <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                 
                 
                 <div className="d-flex justify-content-between align-items-center">
@@ -17,7 +17,7 @@ function Dashboard() {
             </div>
 
 
-            <div className="border border border-danger p-4 rounded-4 bg-white card">
+            <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                 <div className="d-flex justify-content-between align-items-center">
                     <strong>Total de Pacientes</strong>
                     <i className="bi bi-people text-danger"></i>
@@ -29,7 +29,7 @@ function Dashboard() {
             </div>
 
 
-            <div className="border border border-danger p-4 rounded-4 bg-white card">
+            <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                 <div className="d-flex justify-content-between align-items-center">
                     <strong>Coletas Realizadas</strong>
                     <i className="bi bi-fire text-danger"></i>
@@ -41,7 +41,7 @@ function Dashboard() {
             </div>
 
 
-            <div className="border border border-danger p-4 rounded-4 bg-white card">
+            <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                 <div className="d-flex justify-content-between align-items-center">
                     <strong>Dias Abertos</strong>
                     <i className="bi bi-graph-up-arrow text-danger"></i>

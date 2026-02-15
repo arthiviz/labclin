@@ -1,7 +1,7 @@
 function TableDashboard() {
     return (
         <div>
-            <div className="d-flex flex-column justify-content-left align-items-start bg-white rounded-4 border border-2 p-4" style={{minHeight: "400px"}}>
+            <div className="d-flex flex-column justify-content-left align-items-start bg-white rounded-4 border border-danger p-4">
                 <div className="d-flex flex-column">
                     <strong className="fs-6">Atividade Recente</strong>
                     <strong className="text-muted">Últimos atendimento realizados hoje</strong>

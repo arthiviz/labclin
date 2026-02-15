@@ -2,7 +2,7 @@ import "./tasks.css";
 
 function Tasks() {
     return (
-        <div className="bg-white rounded-4 border border-2 p-4" style={{height: "100%"}}>
+        <div className="bg-white rounded-4 border border-danger p-4" style={{height: "100%"}}>
             <div className="d-flex flex-column">
                 <strong className="fs-6">Ações Rápidas</strong>
                 <strong className="text-muted">Acesso rápido a funções principais</strong>
