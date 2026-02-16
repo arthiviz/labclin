@@ -1,7 +1,7 @@
 function FormClient() {
     return (
         <div className="d-flex flex-wrap align-items-evenly gap-4">
-            <div className="border border border-danger p-4 rounded-4 bg-white w-100">
+            <div className="border border border-2 border-secondary-subtle shadow-sm p-4 rounded-4 bg-white w-100">
                 
                 <div className="d-flex flex-column">
                     <strong>Cadastro de Pacientes</strong>

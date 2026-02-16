@@ -1,6 +1,6 @@
 function ListClient() {
     return (
-        <div className="bg-white rounded-4 border border-danger p-4 gap-4">
+        <div className="bg-white rounded-4 border border-2 border-secondary-subtle shadow-sm p-4 gap-4">
             <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex flex-column">
                     <strong>Lista de Pacientes</strong>

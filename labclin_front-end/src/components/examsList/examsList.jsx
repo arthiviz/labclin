@@ -1,4 +1,5 @@
 import "./examsList.css"
+import ModalNewExam from "../ModalNewExam/ModalNewExam";
 
 function ExamsList() {
     return (
@@ -19,7 +20,8 @@ function ExamsList() {
                                 <th scope="col">Preço</th>
                                 <th scope="col">Status</th>
                                 <th scope="col" className="d-flex justify-content-end align-items-center gap-2">
-                                    <button className="btn btn-danger rounded-4"><i className="bi bi-plus"></i>Adicionar Exame</button>
+                                    <button data-bs-toggle="modal" data-bs-target="#modalNewExam" className="btn btn-danger rounded-4"><i className="bi bi-plus"></i>Adicionar Exame</button>
+                                    <ModalNewExam />
                                 </th>
                             </tr>
                         </thead>
