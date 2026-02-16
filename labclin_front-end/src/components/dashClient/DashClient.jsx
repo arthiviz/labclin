@@ -2,7 +2,7 @@ import "./dashclient.css"
 
 function DashClient() {
     return (
-        <div className="d-flex flex-wrap align-items-evenly gap-4">
+        <div className="d-flex flex-wrap align-items-center justify-content-between gap-4">
             <div className="border border border-danger p-4 rounded-4 bg-white cardClient">
                 
                 
@@ -17,7 +17,7 @@ function DashClient() {
             </div>
 
 
-            <div className="border border border-danger p-4 rounded-4 bg-white cardClient">
+            <div className="border border-danger p-4 rounded-4 bg-white cardClient">
                 <div className="d-flex justify-content-between align-items-center">
                     <strong>Novos Este Mês</strong>
                     <i className="bi bi-person-plus text-danger"></i>

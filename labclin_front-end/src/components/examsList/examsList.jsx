@@ -5,7 +5,7 @@ function ExamsList() {
         <div className="flex-grow-1 d-flex flex-column gap-3">
             
             <div className="border border-2 rounded-4 p-3 bg-white w-100 d-flex shadow-sm">
-                <input type="text" className="form-control bg-light" placeholder="Buscar exames" />
+                <input type="text" className="form-control" placeholder="Buscar exames" style={{backgroundColor: "#d7d7d7"}}/>
                 <button className="btn btn-danger ms-2 rounded-4">Buscar</button>
             </div>
             
@@ -24,7 +24,7 @@ function ExamsList() {
                             </tr>
                         </thead>
                         <tbody> 
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>1</td>
                                 <td>Exame de Sangue</td>
                                 <td>R$50,00</td>
@@ -34,7 +34,7 @@ function ExamsList() {
                                     <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>2</td>
                                 <td>Exame de Urina</td>
                                 <td>R$40,00</td>
@@ -44,7 +44,7 @@ function ExamsList() {
                                     <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>3</td>
                                 <td>Exame de Fezes</td>
                                 <td>R$30,00</td>
@@ -54,7 +54,7 @@ function ExamsList() {
                                     <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>4</td>
                                 <td>Exame de Colesterol</td>
                                 <td>R$45,00</td>
@@ -64,7 +64,7 @@ function ExamsList() {
                                     <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>5</td>
                                 <td>Exame de Diabetes</td>
                                 <td>R$25,00</td>
@@ -74,7 +74,7 @@ function ExamsList() {
                                     <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>6</td>
                                 <td>Exame de Hepatite</td>
                                 <td>R$30,00</td>
@@ -84,7 +84,7 @@ function ExamsList() {
                                     <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>7</td>
                                 <td>Exame de COVID-19</td>
                                 <td>R$100,00</td>
@@ -94,7 +94,7 @@ function ExamsList() {
                                     <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>8</td>
                                 <td>Exame de Sangue Oculto</td>
                                 <td>R$40,00</td>

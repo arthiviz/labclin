@@ -7,7 +7,7 @@ function TableDashboard() {
                     <strong className="text-muted">Últimos atendimento realizados hoje</strong>
                 </div>
 
-                <div className="d-flex justify-content-between align-items-center my-4 w-100 border-bottom border-2 border-muted">
+                <div className="d-flex justify-content-between align-items-center my-4 w-100 border-bottom border-2 border-secondary-subtle">
                     <div className="d-flex flex-column my-2">
                         <strong>Maria Silva</strong>
                         <small className="text-muted">10/02/1978</small>
@@ -19,7 +19,7 @@ function TableDashboard() {
                     </div>
                 </div>
 
-                <div className="d-flex justify-content-between align-items-center my-4 w-100 border-bottom border-2 border-muted">
+                <div className="d-flex justify-content-between align-items-center my-4 w-100  border-bottom border-2 border-secondary-subtle">
                     <div className="d-flex flex-column gap-3">
                         <strong>Eduardo Costa</strong>
                         <small className="text-muted">02/12/1999</small>
@@ -31,7 +31,7 @@ function TableDashboard() {
                     </div>
                 </div>
 
-                <div className="d-flex justify-content-between align-items-center my-4 w-100 border-bottom border-2 border-muted">
+                <div className="d-flex justify-content-between align-items-center my-4 w-100 border-bottom border-2 border-secondary-subtle">
                     <div className="d-flex flex-column gap-3">
                         <strong>Arthur Silva</strong>
                         <small className="text-muted">19/10/2007</small>

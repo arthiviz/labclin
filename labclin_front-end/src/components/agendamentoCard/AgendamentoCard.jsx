@@ -34,7 +34,7 @@ const AgendamentoCard = ({ data }) => {
 
         {/* Info Rows */}
         <div className="d-flex flex-column gap-2 mb-4">
-          <div className="d-flex align-items-center bg-light p-2 rounded-3">
+          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
             <i className="bi bi-person me-3 ms-2 text-secondary"></i>
             <div>
               <p className="mb-0 fw-bold small">{data.paciente}</p>
@@ -42,22 +42,22 @@ const AgendamentoCard = ({ data }) => {
             </div>
           </div>
 
-          <div className="d-flex align-items-center bg-light p-2 rounded-3">
+          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
             <i className="bi bi-telephone me-3 ms-2 text-secondary"></i>
             <span className="fw-semibold small">{data.telefone}</span>
           </div>
 
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#fff5f5' }}>
+          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
             <i className="bi bi-calendar-event me-3 ms-2 text-danger"></i>
             <span className="fw-semibold small">{data.data}</span>
           </div>
 
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#f0f7ff' }}>
+          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
             <i className="bi bi-clock me-3 ms-2 text-primary"></i>
             <span className="fw-semibold small">{data.hora}</span>
           </div>
 
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#fffcf0' }}>
+          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
             <i className="bi bi-file-earmark-text me-3 ms-2 text-warning"></i>
             <span className="fw-semibold small">{data.obs}</span>
           </div>

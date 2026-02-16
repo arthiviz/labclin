@@ -13,11 +13,11 @@ function FormClient() {
                     <div className="row mb-3">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Nome Completo*</label>
-                            <input type="text" className="form-control bg-light" placeholder="João da Silva" />
+                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="João da Silva" />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label fw-bold">CPF</label>
-                            <input type="text" className="form-control bg-light" placeholder="000.000.000-00" />
+                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="000.000.000-00" />
                         </div>
                     </div>
 
@@ -25,11 +25,11 @@ function FormClient() {
                     <div className="row mb-3">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Telefone</label>
-                            <input type="text" className="form-control bg-light" placeholder="(00) 00000-0000" />
+                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="(00) 00000-0000" />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label fw-bold">E-mail</label>
-                            <input type="email" className="form-control bg-light" placeholder="joao@exemplo.com" />
+                            <input type="email" className="form-control border-secondary-subtle bg-light" placeholder="joao@exemplo.com" />
                         </div>
                     </div>
 
@@ -37,11 +37,11 @@ function FormClient() {
                     <div className="row mb-4">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Data de Nascimento*</label>
-                            <input type="date" className="form-control bg-light" />
+                            <input type="date" className="form-control border-secondary-subtle bg-light" />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Endereço</label>
-                            <input type="text" className="form-control bg-light" placeholder="Rua, número, bairro" />
+                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="Rua, número, bairro" />
                         </div>
                     </div>
 

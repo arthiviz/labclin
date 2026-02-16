@@ -5,11 +5,12 @@ import Layout from "./components/Layout/Layout"
 import Pacientes from "./pages/Pacientes"
 import Exames from "./pages/Exames"
 import Atendimentos from "./pages/Atendimentos"
+import "./index.css"
 
 function App() {
 
   return (
-    <div className="min-vh-100 bg-light">
+    <div className="min-vh-100t" style={{backgroundColor: "#d7d7d7"}}>
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>

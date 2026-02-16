@@ -2,7 +2,7 @@ import "./dashboard.css"
 
 function Dashboard() {
     return (
-        <div className="d-flex flex-wrap align-items-evenly gap-4">
+        <div className="d-flex flex-wrap align-items-center justify-content-between gap-4">
             <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                 
                 

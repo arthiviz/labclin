@@ -10,7 +10,7 @@ function TableClient() {
                 <div className="table-responsive mt-4">
                     <table className="table table-hover">
                         <thead>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <th>Nome</th>
                                 <th>CPF</th>
                                 <th>Telefone</th>
@@ -19,35 +19,35 @@ function TableClient() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>João da Silva</td>
                                 <td>000.000.000-00</td>
                                 <td>(00) 00000-0000</td>
                                 <td>01/01/2023</td>
                                 <td><span className="badge bg-success">Ativo</span></td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>Maria de Socorro</td>
                                 <td>000.000.000-00</td>
                                 <td>(00) 00000-0000</td>
                                 <td>13/07/2025</td>
                                 <td><span className="badge bg-success">Ativo</span></td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>Arthur da Silva</td>
                                 <td>000.000.000-00</td>
                                 <td>(00) 00000-0000</td>
                                 <td>01/02/2026</td>
                                 <td><span className="badge bg-success">Ativo</span></td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>Antonio Claudino</td>
                                 <td>000.000.000-00</td>
                                 <td>(00) 00000-0000</td>
                                 <td>05/10/2024</td>
                                 <td><span className="badge bg-success">Ativo</span></td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td>Raimundo Neto</td>
                                 <td>000.000.000-00</td>
                                 <td>(00) 00000-0000</td>
@@ -75,31 +75,31 @@ function TableClient() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td><span className="badge bg-danger">#1</span></td>
                                 <td>João da Silva</td>
                                 <td>joaodasilva@gmail.com</td>
                                 <td className="text-center text-danger">20</td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td><span className="badge bg-danger opacity-75">#2</span></td>
                                 <td>Maria de Socorro</td>
                                 <td>mariadesocorro@gmail.com</td>
                                 <td className="text-center text-danger">17</td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td><span className="badge bg-danger opacity-75">#3</span></td>
                                 <td>Arthur da Silva</td>
                                 <td>arthurdasilva@gmail.com</td>
                                 <td className="text-center text-danger">15</td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td><span className="badge bg-danger opacity-75">#4</span></td>
                                 <td>Antonio Claudino</td>
                                 <td>antonioclaudino@gmail.com</td>
                                 <td className="text-center text-danger">14</td>
                             </tr>
-                            <tr>
+                            <tr className="border-secondary-subtle border-bottom ">
                                 <td><span className="badge bg-danger opacity-75">#5</span></td>
                                 <td>Raimundo Neto</td>
                                 <td>raimundoneto@gmail.com</td>

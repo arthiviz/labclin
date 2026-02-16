@@ -25,7 +25,7 @@ function ListClient() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>João da Silva</td>
                             <td>123.456.789-00</td>
                             <td>joao@example.com</td>
@@ -33,56 +33,56 @@ function ListClient() {
                             <td>01/01/1990</td>
                         </tr>
                         {/* ... repita suas linhas aqui ... */}
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Maria de Socorro</td>
                             <td>987.654.321-00</td>
                             <td>maria@example.com</td>
                             <td> (11) 91234-5678</td>
                             <td>02/02/1992</td>
                         </tr>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Arthur da Silva</td>
                             <td>111.222.333-44</td>
                             <td>arthur@example.com</td>
                             <td> (11) 99876-5432</td>
                             <td>03/03/1993</td>
                         </tr>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Antonio Claudino</td>
                             <td>555.666.777-88</td>
                             <td>antonio@example.com</td>
                             <td> (11) 98765-4321</td>
                             <td>04/04/1994</td>
                         </tr>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Raimundo Neto</td>
                             <td>999.888.777-66</td>
                             <td>raimundo@example.com</td>
                             <td> (11) 91234-5678</td>
                             <td>05/05/1995</td>
                         </tr>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Maria de Socorro</td>
                             <td>987.654.321-00</td>
                             <td>maria@example.com</td>
                             <td> (11) 91234-5678</td>
                             <td>02/02/1992</td>
                         </tr>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Arthur da Silva</td>
                             <td>111.222.333-44</td>
                             <td>arthur@example.com</td>
                             <td> (11) 99876-5432</td>
                             <td>03/03/1993</td>
                         </tr>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Antonio Claudino</td>
                             <td>555.666.777-88</td>
                             <td>antonio@example.com</td>
                             <td> (11) 98765-4321</td>
                             <td>04/04/1994</td>
                         </tr>
-                        <tr>
+                        <tr className="border-secondary-subtle border-bottom ">
                             <td>Raimundo Neto</td>
                             <td>999.888.777-66</td>
                             <td>raimundo@example.com</td>

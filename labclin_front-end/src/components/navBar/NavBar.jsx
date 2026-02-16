@@ -17,7 +17,7 @@ function NavBar() {
         </button>
 
         {/* CONTEÚDO DA NAVBAR */}
-        <div className="collapse navbar-collapse" id="navContent">
+        <div className="collapse navbar-collapse bg-white" id="navContent">
           
           {/* MEIO: Links (mx-auto centraliza no Bootstrap) */}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 gap-3">
@@ -40,7 +40,7 @@ function NavBar() {
 
           {/* DIREITA: Pesquisa */}
           <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
+            <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" style={{backgroundColor: "#d7d7d7"}}/>
             <button className="btn btn-danger rounded-4" type="submit">Buscar</button>
           </form>
           

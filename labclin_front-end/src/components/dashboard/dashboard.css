@@ -1,5 +1,7 @@
 .cardDash{
-    width: 375px;
+    max-width: 23%;
+    width: 23%;
+    min-width: 200px;
     height: 180px;
 }
 

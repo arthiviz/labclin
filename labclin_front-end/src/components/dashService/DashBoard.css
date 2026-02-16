@@ -1,5 +1,7 @@
 .cardService{
-    width: 240px;
+    max-width: 13%;
+    width: 13%;
+    min-width: 200px;
     height: 130px;
 }
 

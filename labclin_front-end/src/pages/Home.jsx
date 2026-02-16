@@ -6,11 +6,11 @@ function Home(){
     return(
         <div className="d-flex flex-column gap-5 container-fluid px-5">
             <Dashboard/>
-            <div className="d-flex gap-4">
-                <div style={{minWidth: "65%"}}>
+            <div className="d-flex flex-wrap gap-4 justify-content-center">
+                <div style={{width: "60%", minWidth : "300px",}}>
                      <TableDashboard/>
                 </div>
-                <div style={{minWidth: "35%"}}>
+                <div style={{width: "30%", minWidth : "300px",}}>
                     <Tasks/>
                 </div> 
             </div>
