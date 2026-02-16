@@ -19,8 +19,8 @@ public class Client {
     private Long id;
     private String name;
     private String CPF;
-    private String Email;
-    private Double telephone;
+    private String email;
+    private String telephone;
     private String address;
 
 }
