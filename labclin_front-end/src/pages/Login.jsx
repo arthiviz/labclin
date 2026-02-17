@@ -1,4 +1,4 @@
-import { redirect, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
 function Login(){

@@ -1,4 +1,4 @@
-function ListClient() {
+function ListClient({clients}) {
     return (
         <div className="bg-white rounded-4 border border-2 border-secondary-subtle shadow-sm p-4 gap-4">
             <div className="d-flex justify-content-between align-items-center">
@@ -7,8 +7,8 @@ function ListClient() {
                     <small>Todos os pacientes cadastrados.</small>
                 </div>
                 <div className="d-flex gap-2">
-                    <input type="text" placeholder="Buscar paciente" className="form-control" />
-                    <button className="btn btn-danger">Buscar</button>
+                    <input type="text" placeholder="Buscar paciente" className="form-control" style={{backgroundColor: "#d7d7d7"}} />
+                    <button className="btn btn-danger" >Buscar</button>
                 </div>
             </div>
 
@@ -25,70 +25,20 @@ function ListClient() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>João da Silva</td>
-                            <td>123.456.789-00</td>
-                            <td>joao@example.com</td>
-                            <td> (11) 98765-4321</td>
-                            <td>01/01/1990</td>
-                        </tr>
-                        {/* ... repita suas linhas aqui ... */}
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Maria de Socorro</td>
-                            <td>987.654.321-00</td>
-                            <td>maria@example.com</td>
-                            <td> (11) 91234-5678</td>
-                            <td>02/02/1992</td>
-                        </tr>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Arthur da Silva</td>
-                            <td>111.222.333-44</td>
-                            <td>arthur@example.com</td>
-                            <td> (11) 99876-5432</td>
-                            <td>03/03/1993</td>
-                        </tr>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Antonio Claudino</td>
-                            <td>555.666.777-88</td>
-                            <td>antonio@example.com</td>
-                            <td> (11) 98765-4321</td>
-                            <td>04/04/1994</td>
-                        </tr>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Raimundo Neto</td>
-                            <td>999.888.777-66</td>
-                            <td>raimundo@example.com</td>
-                            <td> (11) 91234-5678</td>
-                            <td>05/05/1995</td>
-                        </tr>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Maria de Socorro</td>
-                            <td>987.654.321-00</td>
-                            <td>maria@example.com</td>
-                            <td> (11) 91234-5678</td>
-                            <td>02/02/1992</td>
-                        </tr>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Arthur da Silva</td>
-                            <td>111.222.333-44</td>
-                            <td>arthur@example.com</td>
-                            <td> (11) 99876-5432</td>
-                            <td>03/03/1993</td>
-                        </tr>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Antonio Claudino</td>
-                            <td>555.666.777-88</td>
-                            <td>antonio@example.com</td>
-                            <td> (11) 98765-4321</td>
-                            <td>04/04/1994</td>
-                        </tr>
-                        <tr className="border-secondary-subtle border-bottom ">
-                            <td>Raimundo Neto</td>
-                            <td>999.888.777-66</td>
-                            <td>raimundo@example.com</td>
-                            <td> (11) 91234-5678</td>
-                            <td>05/05/1995</td>
-                        </tr>
+                        {clients.length > 0 ?
+
+                            clients.map((client,index) =>(
+                                <tr key={client.id || index}>
+                                    <td>{client.name}</td>
+                                    <td>{client.CPF || "-"}</td>
+                                    <td>{client.email || "-"}</td>
+                                    <td>{client.telephone || "-"}</td>
+                                    <td>{client.birthDate || "-"}</td>
+                                </tr>
+                            ))
+
+
+                         : <tr><td><p>Nenhum Paciente Encontrado</p></td></tr>}
                     </tbody>
                 </table>
             </div>

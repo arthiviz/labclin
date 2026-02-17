@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -22,5 +24,6 @@ public class Client {
     private String email;
     private String telephone;
     private String address;
+    private Date birthDate;
 
 }

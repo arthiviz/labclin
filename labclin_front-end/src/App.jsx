@@ -10,7 +10,7 @@ import "./index.css"
 function App() {
 
   return (
-    <div className="min-vh-100t" style={{backgroundColor: "#d7d7d7"}}>
+    <div className="min-vh-100t space-body" style={{backgroundColor: "#d7d7d7"}}>
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
@@ -20,7 +20,7 @@ function App() {
               <Route path="/atendimentos" element={<Atendimentos />} />
             </Route>
           
-            <Route path="/login" element={<Login />} />
+            <Route className="m-0 p-0" path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

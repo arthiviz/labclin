@@ -1,33 +1,8 @@
 import AgendamentoCard from "../agendamentoCard/AgendamentoCard";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 
-function ListService() {
-  const agendamentos = [
-    {
-      id: 1,
-      status: "Agendado",
-      exame: "Hemograma Completo",
-      paciente: "Maria Santos",
-    },
-    {
-      id: 2,
-      status: "Em Andamento",
-      exame: "Glicose em Jejum",
-      paciente: "João Silva",
-    },
-    {
-      id: 3,
-      status: "Concluído",
-      exame: "Colesterol Total",
-      paciente: "Ana Costa",
-    },
-    {
-      id: 4,
-      status: "Agendado",
-      exame: "Ureia e Creatinina",
-      paciente: "Carlos Lima",
-    },
-  ];
+function ListService({atendimentos}) {
+  
 
   return (
     <div className="d-flex flex-column gap-4">
@@ -69,15 +44,10 @@ function ListService() {
       </div>
 
       <div className="container-fluid p-0">
-        {/* A classe 'row' prepara o grid, 'g-4' define o espaçamento entre os cards */}
         <div className="row g-4">
-          {agendamentos.map((item) => (
-            /* col-12: 1 por linha no celular
-                    col-md-6: 2 por linha em tablets
-                    col-xl-4: EXATAMENTE 3 por linha em telas grandes 
-                */
-            <div key={item.id} className="col-12 col-md-6 col-xl-4">
-              <AgendamentoCard data={item} />
+          {atendimentos.map((atendimento) => (
+            <div key={atendimento.id} className="col-12 col-md-6 col-xl-4">
+              <AgendamentoCard atendimento={atendimento} />
             </div>
           ))}
         </div>

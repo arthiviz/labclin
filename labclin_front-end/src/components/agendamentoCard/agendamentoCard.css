@@ -1,0 +1,13 @@
+/* Remove ou altera o brilho azul de quando você clica */
+.accordion-button:focus {
+    z-index: 3;
+    border-color: #198754; /* Cor da borda quando focado (verde) */
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25); /* O "brilho" (Sombra) */
+}
+
+/* Se você quiser remover totalmente o brilho: */
+.accordion-button:focus {
+    box-shadow: none !important;
+    border-color: rgba(0,0,0,.125); /* Cor padrão da borda */
+}
