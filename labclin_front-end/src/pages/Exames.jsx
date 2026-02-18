@@ -24,7 +24,7 @@ function Exames() {
     return (
         <div className="d-flex gap-5 w-100 p-5">
                 <ExamsDetails/>
-                <ExamsList exams = {exams}/>
+                <ExamsList exams = {exams} carregarExames = {getAllExams}/>
         </div>
     );
 }

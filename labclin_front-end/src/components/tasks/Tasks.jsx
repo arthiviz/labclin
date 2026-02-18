@@ -23,11 +23,7 @@ function Tasks() {
         >
           <i className="bi bi-building-add"></i>Novo Atendimento
         </button>
-        <button
-          data-bs-toggle="modal"
-          data-bs-target="#modalNewClient"
-          className="btn border-secondary-subtle btn-outline-dark border border-2 w-100 "
-        >
+        <button data-bs-toggle="modal" data-bs-target="#modalNewClient" className="btn border-secondary-subtle btn-outline-dark border border-2 w-100 ">
           <i className="bi bi-person-plus"></i>Novo Cliente{" "}
         </button>
         <button data-bs-toggle="modal" data-bs-target="#modalNewExam" className="btn border-secondary-subtle btn-outline-dark border border-2 w-100 ">

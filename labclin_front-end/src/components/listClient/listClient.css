@@ -1,0 +1,9 @@
+.btn-client {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Quando passar o mouse na linha (tr), os botões dentro dela aparecem */
+tr:hover .btn-client {
+    opacity: 1;
+}

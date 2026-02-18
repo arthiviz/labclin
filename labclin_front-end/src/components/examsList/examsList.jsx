@@ -1,7 +1,7 @@
 import "./examsList.css"
 import ModalNewExam from "../ModalNewExam/ModalNewExam";
 
-function ExamsList({exams}) {
+function ExamsList({exams,carregarExames}) {
     console.log("Exames recebidos no ExamsList:", exams);
     return (
         <div className="flex-grow-1 d-flex flex-column gap-3">
@@ -22,7 +22,7 @@ function ExamsList({exams}) {
                                 <th scope="col">descrição</th>
                                 <th scope="col" className="d-flex justify-content-end align-items-center gap-2">
                                     <button data-bs-toggle="modal" data-bs-target="#modalNewExam" className="btn btn-danger rounded-4"><i className="bi bi-plus"></i>Adicionar Exame</button>
-                                    <ModalNewExam />
+                                    <ModalNewExam  carregarExames = {carregarExames}/>
                                 </th>
                             </tr>
                         </thead>

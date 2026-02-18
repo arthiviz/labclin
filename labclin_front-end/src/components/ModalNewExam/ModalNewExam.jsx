@@ -1,4 +1,33 @@
-function ModalNewExam() {
+import { useRef } from "react";
+import Swal from "sweetalert2";
+import { saveExam } from "../../service/ExamService";
+
+function ModalNewExam({carregarExames}) {
+
+    const nameExam = useRef()
+    const typeExam = useRef()
+    const preco = useRef()
+    const description = useRef()
+
+    const salvarExame = async () => {
+        saveExam(nameExam.current.value,typeExam.current.value,preco.current.value,description.current.value,)
+        .then(Response =>{
+            console.log(Response)
+            nameExam.current.value = ""
+            typeExam.current.value = ""
+            preco.current.value = ""
+            description.current.value = ""
+            Swal.fire({
+                title: "Sucesso!",
+                text: "Exame Adicionado com Sucesso!",
+                icon: "success"
+            });
+            carregarExames();
+        }).catch(error => console.log(error))
+        
+    }
+
+
     return (
         <div className="modal fade" id="modalNewExam" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -13,11 +42,11 @@ function ModalNewExam() {
                         <div className="row mb-3">
                             <div className="col-md-4">
                                 <label className="form-label fw-bold">Nome*</label>
-                                <input type="text" className="form-control border-secondary-subtle" placeholder="Hemograma" style={{backgroundColor: "#d7d7d7"}} />
+                                <input type="text" className="form-control border-secondary-subtle" placeholder="Hemograma" ref={nameExam} style={{backgroundColor: "#d7d7d7"}} />
                             </div>
                             <div className="col-md-4">
                                 <label className="form-label fw-bold">Tipo</label>
-                                <select name="exams" id="exams" className="form-select border-secondary-subtle" style={{backgroundColor: "#d7d7d7"}}>
+                                <select name="exams" id="exams" className="form-select border-secondary-subtle" ref={typeExam} style={{backgroundColor: "#d7d7d7"}}>
                                     <option value="null">Selecione o tipo</option>
                                     <option value="1">Exame 1</option>
                                     <option value="2">Exame 2</option>
@@ -25,19 +54,19 @@ function ModalNewExam() {
                             </div>
                             <div className="col-md-4">
                                 <label className="form-label fw-bold">Valor do Exame*</label>
-                                <input type="number" className="form-control border-secondary-subtle" placeholder="R$30,00" style={{backgroundColor: "#d7d7d7"}} />
+                                <input type="number" className="form-control border-secondary-subtle" ref={preco} placeholder="R$30,00" style={{backgroundColor: "#d7d7d7"}} />
                             </div>
                         </div>
 
                         <div className="col-md-12 mb-4">
                             <label className="form-label fw-bold">Descrição</label>
-                            <textarea className="form-control border-secondary-subtle" placeholder="Ex: Deve ser realizado em jejum" style={{backgroundColor: "#d7d7d7", height: "100px"}}></textarea>
+                            <textarea className="form-control border-secondary-subtle" ref={description} placeholder="Ex: Deve ser realizado em jejum" style={{backgroundColor: "#d7d7d7", height: "100px"}}></textarea>
                         </div>
                     
 
                         <div className="d-flex justify-content-center">
-                            <button className="btn btn-danger px-4 fw-bold text-center">
-                                Novo Atendimento
+                            <button onClick={salvarExame} className="btn btn-danger px-4 fw-bold text-center">
+                                Adicionar Exame
                             </button>
                         </div>
                         

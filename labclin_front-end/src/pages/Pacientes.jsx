@@ -20,6 +20,7 @@ const carregarUsuarios = () =>{
 
   useEffect(()=>{
     carregarUsuarios()
+    
   },[])
 
     

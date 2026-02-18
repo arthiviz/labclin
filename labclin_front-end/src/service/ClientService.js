@@ -5,7 +5,6 @@ export function listAllClients(){
 }
 
 export function createClient(name,CPF,telephone,email,birthDate,adress){
-    console.log(name,CPF,telephone,email,birthDate,adress)
     return api.post("/client/save", {
         name,
         CPF,
@@ -14,4 +13,19 @@ export function createClient(name,CPF,telephone,email,birthDate,adress){
         birthDate,
         adress
     })
+}
+
+export function updateClient(name,CPF,telephone,email,birthDate,adress,id){
+    return api.put(`/client/finById/${id}`,{
+        name,
+        CPF,
+        telephone,
+        email,
+        birthDate,
+        adress
+    })
+}
+
+export function deleteCLient(id){
+    return api.delete(`/client/delete/${id}`)
 }

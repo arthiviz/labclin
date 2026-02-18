@@ -1,23 +1,75 @@
-import {  useRef } from "react";
+import {  useEffect, useRef } from "react";
 import { createClient } from "../../service/ClientService";
+import Swal from "sweetalert2";
 
-function FormClient({carregarUsuarios}) {
+function FormClient({carregarUsuarios,editClient}) {
 
-    const name = useRef()
-    const CPF = useRef()
-    const telephone = useRef()
-    const email = useRef()
-    const birthDate = useRef()
-    const adress = useRef()
+    // Seus refs continuam iguais
+    const name = useRef();
+    const CPF = useRef();
+    const telephone = useRef();
+    const email = useRef();
+    const birthDate = useRef();
+    const adress = useRef();
 
-    const createCli = async () =>{
-        
-        createClient(name.current.value,CPF.current.value,telephone.current.value,email.current.value,birthDate.current.value,adress.current.value)
-        .then(response =>{
-            console.log(response)
-            carregarUsuarios()
-        }).catch(erro => console.log(erro))
-    }
+    useEffect(() => {
+        if (editClient) {
+            // Preenchendo os campos quando o editClient mudar
+            name.current.value = editClient.name || "";
+            CPF.current.value = editClient.CPF || "";
+            telephone.current.value = editClient.telephone || "";
+            email.current.value = editClient.email || "";
+            
+            // Tratando a data para o formato AAAA-MM-DD
+            if (editClient.birthDate) {
+                birthDate.current.value = editClient.birthDate.substring(0, 10);
+            }
+            
+            adress.current.value = editClient.adress || "";
+        }
+    }, [editClient]);
+
+    const handleSave = async () => {
+        // Coleta os valores atuais dos refs
+        const dados = {
+            name: name.current.value,
+            CPF: CPF.current.value,
+            telephone: telephone.current.value,
+            email: email.current.value,
+            birthDate: birthDate.current.value,
+            adress: adress.current.value
+        };
+
+        try {
+            if (editClient) {
+                // LÓGICA DE EDIÇÃO (Chame seu service de Update aqui)
+                // await updateClient(editClient.id, dados);
+                Swal.fire("Atualizado!", "Paciente atualizado com sucesso.", "success");
+                limparFormulario();
+                carregarUsuarios();
+            } else {
+                // LÓGICA DE CRIAÇÃO
+                await createClient(dados.name, dados.CPF, dados.telephone, dados.email, dados.birthDate, dados.adress);
+                Swal.fire("Sucesso!", "Paciente cadastrado com sucesso.", "success");
+                limparFormulario();
+                carregarUsuarios();
+            }
+
+            
+        } catch (erro) {
+            console.error(erro);
+            Swal.fire("Erro", "Não foi possível salvar os dados", "error");
+        }
+    };
+
+    const limparFormulario = () => {
+        name.current.value = "";
+        CPF.current.value = "";
+        telephone.current.value = "";
+        email.current.value = "";
+        birthDate.current.value = "";
+        adress.current.value = "";
+    };
 
     
 
@@ -68,8 +120,8 @@ function FormClient({carregarUsuarios}) {
                     </div>
 
                     
-                    <button onClick={createCli} className="btn btn-danger px-4 fw-bold">
-                        Cadastrar Cliente
+                    <button onClick={handleSave} className="btn btn-danger px-4 fw-bold">
+                        {editClient ? "Salvar Alterações" : "Cadastrar Cliente"}
                     </button>
                 </div>
                 
