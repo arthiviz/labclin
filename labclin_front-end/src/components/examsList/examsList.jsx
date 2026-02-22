@@ -1,14 +1,40 @@
 import "./examsList.css"
 import ModalNewExam from "../ModalNewExam/ModalNewExam";
 import { useState } from "react";
+import { deleteExam } from "../../service/ExamService";
+import Swal from "sweetalert2";
 
 function ExamsList({exams,carregarExames}) {
     
     const [editExam,SetEditExam] = useState()
 
     const onEdit = (Exam)=>{
-        
+        console.log(Exam)
+        SetEditExam(Exam)
     }
+
+    const onDelete = async (id)=>{
+
+        Swal.fire({
+            title: "Deseja Remover Esse Exame?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#ff0000",
+            cancelButtonColor: "rgb(76, 76, 76)",
+            confirmButtonText: "Sim, Remover!"
+            }).then( async (result) => {
+            if (result.isConfirmed) {
+                const response = await deleteExam(id)
+                .then(response =>{
+                    Swal.fire("Removido!", "Exame Removido com sucesso.", "success");
+                    carregarExames();
+                }).catch(erro => {
+                    Swal.fire("Erro!", "Erro ao Remover Exame.", "error");
+                })
+            }
+            });
+    }
+
 
     return (
         <div className="flex-grow-1 d-flex flex-column gap-3">
@@ -44,8 +70,8 @@ function ExamsList({exams,carregarExames}) {
                                         <td>{exam.type}</td>
                                         <td>{exam.description}</td>
                                         <td className="d-flex gap-4 justify-content-end">
-                                            <button data-bs-toggle = "modal" data-bs-target = "#modalNewExam" className="btn btn-actions btn-outline-primary rounded-4"><i class="bi bi-pencil-square"></i></button>
-                                            <button className="btn btn-actions btn-outline-danger rounded-4"><i class="bi bi-trash"></i></button>
+                                            <button onClick={()=>onEdit(exam)} data-bs-toggle = "modal" data-bs-target = "#modalNewExam" className="btn btn-actions btn-outline-primary rounded-4"><i className="bi bi-pencil-square"></i></button>
+                                            <button onClick={()=>onDelete(exam.id)} className="btn btn-actions btn-outline-danger rounded-4"><i className="bi bi-trash"></i></button>
                                         </td>
                                     </tr>
                                 ))

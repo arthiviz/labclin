@@ -1,31 +1,56 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Swal from "sweetalert2";
-import { saveExam } from "../../service/ExamService";
+import { deleteExam, saveExam, updateExam } from "../../service/ExamService";
 
-function ModalNewExam({carregarExames}) {
+function ModalNewExam({carregarExames,editExam}) {
 
     const nameExam = useRef()
     const typeExam = useRef()
     const preco = useRef()
     const description = useRef()
 
-    const salvarExame = async () => {
-        saveExam(nameExam.current.value,typeExam.current.value,preco.current.value,description.current.value,)
-        .then(Response =>{
-            console.log(Response)
-            nameExam.current.value = ""
-            typeExam.current.value = ""
-            preco.current.value = ""
-            description.current.value = ""
-            Swal.fire({
-                title: "Sucesso!",
-                text: "Exame Adicionado com Sucesso!",
-                icon: "success"
-            });
-            carregarExames();
-        }).catch(error => console.log(error))
-        
+    useEffect(()=>{
+        if(editExam){
+            nameExam.current.value = editExam.name || "Sem nome"
+            typeExam.current.value = editExam.type || "Sem tipo"
+            preco.current.value = editExam.preco || "sem preco"
+            description.current.value = editExam.description
+    
+        }
+    },[editExam])
+
+    const limparFormulario = ()=>{
+        nameExam.current.value = ""
+        typeExam.current.value = ""
+        preco.current.value = ""
+        description.current.value = ""
     }
+
+    const onSave = async () =>{
+        const dados ={
+            name: nameExam.current.value,
+            typeExam: typeExam.current.value,
+            preco: preco.current.value,
+            description: description.current.value
+        }
+        try{
+            if(editExam){
+                await updateExam(dados.name,dados.typeExam,dados.preco,dados.description,editExam.id)
+                Swal.fire("Atualizado!", "Exame Atualizado com Sucesso.", "success");
+                carregarExames();
+                limparFormulario()
+            }else{
+                await saveExam(dados.name,dados.typeExam,dados.preco,dados.description)
+                Swal.fire("Adicionado!", "Exame Adicionado com Sucesso.", "success");
+                carregarExames();
+                limparFormulario()
+            }
+        }catch(erro){
+            console.log(erro)
+            Swal.fire("Erro", "Não foi possível salvar os dados", "error");
+        }
+    }
+
 
 
     return (
@@ -65,8 +90,8 @@ function ModalNewExam({carregarExames}) {
                     
 
                         <div className="d-flex justify-content-center">
-                            <button onClick={salvarExame} className="btn btn-danger px-4 fw-bold text-center">
-                                Adicionar Exame
+                            <button onClick={onSave} className="btn btn-danger px-4 fw-bold text-center">
+                                {editExam ? "Atualizar Exame" : "Cadastrar Exame"}
                             </button>
                         </div>
                         
