@@ -10,7 +10,7 @@ import "./index.css"
 function App() {
 
   return (
-    <div className="min-vh-100t space-body" style={{backgroundColor: "#d7d7d7"}}>
+    <div className="min-vh-100t space-body bg-light">
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>

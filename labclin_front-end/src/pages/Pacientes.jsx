@@ -30,7 +30,7 @@ const carregarUsuarios = () =>{
         <div className="d-flex flex-column gap-5">
             <DashClient/>
             <FormClient carregarUsuarios = {carregarUsuarios}/>
-            <ListClient clients = {clients}/>
+            <ListClient clients = {clients} carregarUsuarios={carregarUsuarios}/>
             <TableClient/>
         </div>
     );

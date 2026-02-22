@@ -1,10 +1,9 @@
 import {  useEffect, useRef } from "react";
-import { createClient } from "../../service/ClientService";
+import { createClient, updateClient } from "../../service/ClientService";
 import Swal from "sweetalert2";
 
 function FormClient({carregarUsuarios,editClient}) {
 
-    // Seus refs continuam iguais
     const name = useRef();
     const CPF = useRef();
     const telephone = useRef();
@@ -14,7 +13,6 @@ function FormClient({carregarUsuarios,editClient}) {
 
     useEffect(() => {
         if (editClient) {
-            // Preenchendo os campos quando o editClient mudar
             name.current.value = editClient.name || "";
             CPF.current.value = editClient.CPF || "";
             telephone.current.value = editClient.telephone || "";
@@ -30,7 +28,6 @@ function FormClient({carregarUsuarios,editClient}) {
     }, [editClient]);
 
     const handleSave = async () => {
-        // Coleta os valores atuais dos refs
         const dados = {
             name: name.current.value,
             CPF: CPF.current.value,
@@ -43,16 +40,16 @@ function FormClient({carregarUsuarios,editClient}) {
         try {
             if (editClient) {
                 // LÓGICA DE EDIÇÃO (Chame seu service de Update aqui)
-                // await updateClient(editClient.id, dados);
+                await updateClient(dados.name,dados.CPF,dados.telephone,dados.email,dados.birthDate,dados.adress,editClient.id)
                 Swal.fire("Atualizado!", "Paciente atualizado com sucesso.", "success");
-                limparFormulario();
                 carregarUsuarios();
+                limparFormulario();
             } else {
                 // LÓGICA DE CRIAÇÃO
                 await createClient(dados.name, dados.CPF, dados.telephone, dados.email, dados.birthDate, dados.adress);
                 Swal.fire("Sucesso!", "Paciente cadastrado com sucesso.", "success");
-                limparFormulario();
                 carregarUsuarios();
+                limparFormulario();
             }
 
             

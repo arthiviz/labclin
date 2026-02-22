@@ -16,7 +16,7 @@ export function createClient(name,CPF,telephone,email,birthDate,adress){
 }
 
 export function updateClient(name,CPF,telephone,email,birthDate,adress,id){
-    return api.put(`/client/finById/${id}`,{
+    return api.put(`/client/update/${id}`,{
         name,
         CPF,
         telephone,

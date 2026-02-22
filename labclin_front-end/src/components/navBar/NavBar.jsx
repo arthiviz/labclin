@@ -40,7 +40,7 @@ function NavBar() {
 
           {/* DIREITA: Pesquisa */}
           <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" style={{backgroundColor: "#d7d7d7"}}/>
+            <input className="form-control me-2 bg-light" type="search" placeholder="Buscar..." aria-label="Search"/>
             <button className="btn btn-danger rounded-4" type="submit">Buscar</button>
           </form>
           
