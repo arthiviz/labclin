@@ -1,7 +1,7 @@
 import AgendamentoCard from "../agendamentoCard/AgendamentoCard";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 
-function ListService({atendimentos}) {
+function ListService({atendimentos,clients,exams,getAllAtendimentos}) {
   
 
   return (
@@ -15,7 +15,7 @@ function ListService({atendimentos}) {
           <i className="bi bi-plus"></i> Novo Atendimento
         </button>
       </div>
-      <ModalNewAtendimento />
+      <ModalNewAtendimento clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos}/>
       <div className="border border-2 shadow-sm p-3 rounded-3 bg-white">
         <div className="d-flex justify-content-between align-items-center ">
           <div className="d-flex gap-2 bg-light px-3  rounded-4">

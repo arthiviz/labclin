@@ -5,27 +5,8 @@ import ListClient from "../components/listClient/ListClient";
 import TableClient from "../components/tableClients/TableClient";
 import { listAllClients } from "../service/ClientService";
 
-function Pacientes() {
-    
-    const [clients, setClients] = useState([]);
-
-const carregarUsuarios = () =>{
-    listAllClients()
-    .then(response => {
-      setClients(response.data);
-    }).catch(error => {
-      console.error("Erro ao carregar clientes:", error);
-    });
-  }
-
-  useEffect(()=>{
-    carregarUsuarios()
-    
-  },[])
-
-    
+function Pacientes({clients,carregarUsuarios}) {
         
-
     return (
         <div className="d-flex flex-column gap-5">
             <DashClient/>

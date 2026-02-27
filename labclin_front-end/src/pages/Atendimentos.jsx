@@ -3,7 +3,7 @@ import DashService from "../components/dashService/DashService";
 import ListService from "../components/listService/ListService";
 import { listAllAtendimentos } from "../service/Atendimento";
 
-function Atendimentos() {
+function Atendimentos({clients,exams}) {
 
   const [atendimentos, setAtendimentos] = useState([]);
 
@@ -23,7 +23,7 @@ function Atendimentos() {
   return (
     <div className="d-flex flex-column gap-4">
       <DashService />
-      <ListService atendimentos={atendimentos}/>
+      <ListService atendimentos={atendimentos} clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos}/>
     </div>
   );
 }

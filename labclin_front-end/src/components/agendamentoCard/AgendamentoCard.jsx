@@ -27,7 +27,7 @@ const AgendamentoCard = ({ atendimento }) => {
 
         {/* Info Rows */}
         <div className="d-flex flex-column gap-2 mb-4">
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
+          <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-person me-3 ms-2 text-secondary"></i>
             <div>
               <p className="mb-0 fw-bold small">{atendimento.client.name}</p>
@@ -35,51 +35,42 @@ const AgendamentoCard = ({ atendimento }) => {
             </div>
           </div>
 
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
+          <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-telephone me-3 ms-2 text-secondary"></i>
             <span className="fw-semibold small">{atendimento.client.telephone}</span>
           </div>
 
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
+          <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-calendar-event me-3 ms-2 text-danger"></i>
             <span className="fw-semibold small">{atendimento.date}</span>
           </div>
 
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
+          <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-currency-dollar me-3 ms-2 text-primary"></i>
-            <span className="fw-semibold small">{atendimento.total || "não informado"}</span>
+            <span className="fw-semibold small">R${atendimento.total || "não informado"}</span>
           </div>
 
-          <div className="d-flex align-items-center p-2 rounded-3" style={{ backgroundColor: '#d7d7d7' }}>
-            <i className="bi bi-file-earmark-text text-warning me-3 ms-2 text-secondary"></i>
-            <div>
-              <p className="mb-0 fw-bold small">Exames</p>
-              {atendimento.exams && atendimento.exams.length > 0 ? (
-                      <ul className="list-group list-group-flush">
-                        {atendimento.exams.map((exam, index) => (
-                          <li key={exam.id || index} className="list-group-item border-0 text-muted small" style={{ backgroundColor: 'transparent' }}>{exam.name}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-muted small">Nenhum exame cadastrado</p>
-                    )}
-              <small className="text-muted"></small>
-            </div>
-          </div>
+          
 
             
-            <div className="accordion accordion-flush shadow-lg  w-100 " id="accordionAtendimento">
-                <h2 className="accordion-header ">
-                  <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    <i className="bi bi-file-earmark-text me-3 ms-2 text-warning"></i>Exames
+            <div className="accordion accordion-flush w-100" id={`accordion-${atendimento.id}`}>
+              <div className="accordion-item">
+                <h2 className="accordion-header">
+                  <button 
+                    className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-${atendimento.id}`} aria-expanded="false" aria-controls={`panelsStayOpen-${atendimento.id}`}>
+                    <i className="bi bi-file-earmark-text me-3 ms-2 text-warning"></i>
+                    Exames
                   </button>
                 </h2>
-                <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionAtendimento">
+                
+                <div id={`panelsStayOpen-${atendimento.id}`} className="accordion-collapse collapse"data-bs-parent={`#accordion-${atendimento.id}`}>
                   <div className="accordion-body">
                     {atendimento.exams && atendimento.exams.length > 0 ? (
                       <ul className="list-group list-group-flush">
                         {atendimento.exams.map((exam, index) => (
-                          <li key={exam.id || index} className="list-group-item border-0">{exam.name}</li>
+                          <li key={exam.id || index} className="list-group-item border-0">
+                            {exam.name}
+                          </li>
                         ))}
                       </ul>
                     ) : (
@@ -87,6 +78,7 @@ const AgendamentoCard = ({ atendimento }) => {
                     )}
                   </div>
                 </div>
+              </div>
             </div>
         </div>
 

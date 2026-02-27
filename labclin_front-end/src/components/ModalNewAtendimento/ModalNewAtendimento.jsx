@@ -1,4 +1,90 @@
-function ModalNewAtendimento() {
+import { useEffect, useRef, useState } from "react";
+import { createAtendimento } from "../../service/Atendimento";
+import Swal from "sweetalert2";
+
+function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
+
+    const date = useRef()
+    const observations = useRef()
+    const payment_type = useRef()
+    const total_pay = useRef()
+
+    const [buscaClient,SetBuscaClient] = useState("")
+    const[buscaExam,setBuscaExam] = useState("")
+
+    const [mostrarResultadoExam,setMostrarResultadoExam] = useState(false)
+    const [mostrarResultadoClient,setMostrarResultadoClient] = useState(false)
+
+    const [examsSelecionados,setExamsSelecionados] = useState([])
+    const [clientSelecionado,setClientSelecionado] = useState(null)
+
+    const clientsFiltrados = clients.filter(client => client.name.toLowerCase().includes(buscaClient.toLowerCase()))
+    const examsFiltrados = exams.filter(exam => exam.name.toLowerCase().includes(buscaExam.toLocaleLowerCase()))
+
+    const [valorTotal,setValorTotal] = useState(0)
+
+    const adicionarExam = (exam)=>{
+        if(!examsSelecionados.find(e => e.id === exam.id)){
+            setExamsSelecionados([...examsSelecionados,exam])
+        }
+        setBuscaExam("")
+        setMostrarResultadoExam(false)
+    }
+    
+    const removeExam = (id) =>{
+        setExamsSelecionados(examsSelecionados.filter(exam => exam.id !== id))
+    }
+
+    const limpar_form = ()=>{
+
+        date.current.value = ""
+        observations.current.value = ""
+        payment_type.current.value = ""
+        total_pay.current.value = ""
+        setClientSelecionado(null)
+        SetBuscaClient("")
+        setExamsSelecionados([])
+        setBuscaExam("")
+
+    }
+
+    const saveService = async ()=>{
+        const dados = {
+            client : clientSelecionado,
+            exams: examsSelecionados,
+            date: date.current.value,
+            observations: observations.current.value,
+            total: valorTotal,
+            payment_type: payment_type.current.value,
+            total_pay: total_pay.current.value,
+            status: "pendente"
+        }
+
+        try{
+
+            const response = await createAtendimento(dados)
+            console.log(response)
+            Swal.fire("Adicionado!", "Coleta Adicionada com Sucesso.", "success");
+            limpar_form()
+            getAllAtendimentos()
+
+        }catch(erro){
+            console.log(erro)
+            Swal.fire("Erro!", "Erro Ao Adicionar Coleta", "error");
+        }
+    }
+
+
+    useEffect(()=>{
+        const somaExams = examsSelecionados.reduce((acc, exam) => acc + exam.preco, 0)
+
+        setValorTotal(somaExams)
+    },[examsSelecionados])
+
+    useEffect(()=>{
+        getAllAtendimentos()
+    },[])
+
   return (
     
     <div className="modal fade" id="modalNewAtendimento" tabIndex="-1">
@@ -12,33 +98,92 @@ function ModalNewAtendimento() {
                     
                     <div className="p-3">
                     <div className="row mb-3">
-                        <div className="col-md-6">
+                        <div className="col-md-6 position-relative">
                             <label className="form-label fw-bold">Cliente*</label>
-                            <select name="cliente" id="cliente" className="form-select border-secondary-subtle bg-light">
-                                <option value="null">Selecione um cliente</option>
-                                <option value="1">João da Silva</option>
-                                <option value="2">Maria Oliveira</option>
-                            </select>
+                            <input type="text" 
+                            placeholder="Nome do Paciente" 
+                            value={buscaClient} 
+                            className="form-control border-secondary-subtle bg-light"
+                            onChange={(valor) =>{
+                                SetBuscaClient(valor.target.value)
+                                setMostrarResultadoClient(true)
+                            }}
+                            onFocus={() => setMostrarResultadoClient(true)}/>
+
+                            {mostrarResultadoClient && buscaClient.length > 0 && (
+                                <ul className="list-group position-absolute w-100 shadow-sm" style={{ zIndex: 1000, maxHeight: '200px', overflowY: 'auto' }}>
+                                    {clientsFiltrados.length > 0 ? (
+                                        clientsFiltrados.map((client,index)=>(
+                                            <li key={client.id || index} className="list-group-item list-group-item-action" style={{cursor:"pointer"}} onClick={()=>{
+                                                SetBuscaClient(client.name)
+                                                setClientSelecionado(client)
+                                                setMostrarResultadoClient(false)
+                                            }}>
+                                                {client.name} <br />
+                                                <small className="">{client.CPF ? client.CPF :client.birthDate}</small>
+                                            </li>
+                                        ))
+                                    ) :(
+                                        <li className="list-group-item list-group-item-action">Nenhum Paciente encontrado</li>
+                                    )}
+                                </ul>
+                            )}
                         </div>
-                        <div className="col-md-6">
-                            <label className="form-label fw-bold">Exames</label>
-                            <select name="exams" id="exams" className="form-select border-secondary-subtle bg-light">
-                                <option value="null">Selecione os exames</option>
-                                <option value="1">Exame 1</option>
-                                <option value="2">Exame 2</option>
-                            </select>
+                        <div className="col-md-6 position-relative">
+                            <label className="form-label fw-bold">Exames*</label>
+                            <input type="text"
+                                placeholder="Exames"
+                                value={buscaExam}
+                                className="form-control border-secondary-subtle bg-light"
+                                onChange={(valor) =>{
+                                    setBuscaExam(valor.target.value)
+                                    setMostrarResultadoExam(true)
+                                }}
+                                onFocus={()=> setMostrarResultadoExam(true)}
+                            />
+
+                            {mostrarResultadoExam && buscaExam.length > 0 && (
+                                <ul className="list-group position-absolute w-100 shadow-sm" style={{ zIndex: 1000, maxHeight: '200px', overflowY: 'auto' }}>
+                                    {examsFiltrados.length > 0 ?(
+                                        examsFiltrados.map((exam,index) =>(
+                                            <li key={exam.id || index} className="list-group-item list-group-item-action" style={{cursor:"pointer"}} onClick={()=>{
+                                                adicionarExam(exam)
+                                            }}>
+                                                {exam.name}
+                                            </li>
+                                        ))
+                                    ) : <li className="list-group-item list-group-item-action">Nenhum exame encontrado</li>}
+                                </ul>
+                            )}
+                            
                         </div>
                     </div>
+                    {examsSelecionados.length > 0 && (
+                        <div className="row mb-3">
+                            <div className="col-md-12">
+                                
+                                    <ul className="p-0 m-1 list-group overflow-auto" style={{maxHeight: 100}}>
+                                        {examsSelecionados.map((exam,index)=>(
+                                            <li key={exam.id || index} className="d-flex justify-content-between border-bottom">
+                                                {exam.name}
+                                                <button onClick={()=>{removeExam(exam.id)}} className="btn border border-0 text-danger">---</button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                
+                            </div>
+                        </div>
+                    )}
 
                     
                     <div className="row mb-3">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Data da Coleta*</label>
-                            <input type="date" className="form-control border-secondary-subtle bg-light" />
+                            <input type="date" ref={date} className="form-control border-secondary-subtle bg-light" />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label fw-bold">Tipo de Pagamento</label>
-                            <select name="tipoPagamento" id="tipoPagamento" className="form-select border-secondary-subtle bg-light">
+                            <label className="form-label fw-bold">Tipo de Pagamento*</label>
+                            <select name="tipoPagamento" ref={payment_type} id="tipoPagamento" className="form-select border-secondary-subtle bg-light">
                                 <option value="null">Selecione o tipo de pagamento</option>
                                 <option value="dinheiro">Dinheiro</option>
                                 <option value="pix">PIX</option>
@@ -57,20 +202,20 @@ function ModalNewAtendimento() {
                     <div className="row mb-4">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Total*</label>
-                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="Valor Total" />
+                            <input type="text" value={valorTotal} onChange={(valor) => setValorTotal(Number(valor.target.value))} className="form-control border-secondary-subtle bg-light" placeholder="Valor Total" />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label fw-bold">Total Pago</label>
-                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="Valor Pago"/>
+                            <label className="form-label fw-bold">Total Pago*</label>
+                            <input type="text" ref={total_pay} className="form-control border-secondary-subtle bg-light" placeholder="Valor Pago"/>
                         </div>
                         <div>
                             <label className="form-label fw-bold">Observações</label>
-                            <textarea className="form-control border-secondary-subtle bg-light" placeholder="Observações adicionais"></textarea>
+                            <textarea ref={observations} className="form-control border-secondary-subtle bg-light" placeholder="Observações adicionais"></textarea>
                         </div>
                     </div>
 
                     <div className="d-flex justify-content-center">
-                        <button className="btn btn-danger px-4 fw-bold text-center">
+                        <button onClick={()=>saveService()} className="btn btn-danger px-4 fw-bold text-center">
                             Novo Atendimento
                         </button>
                     </div>
