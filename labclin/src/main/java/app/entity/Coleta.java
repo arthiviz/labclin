@@ -32,7 +32,7 @@ public class Coleta {
     private Date date;
     private String Observations;
     private Double total;
-    private Double payment_type;
+    private String payment_type;
     private Double total_pay;
     private String Status;
 

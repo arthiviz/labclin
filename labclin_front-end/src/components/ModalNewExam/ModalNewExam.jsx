@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Swal from "sweetalert2";
 import { deleteExam, saveExam, updateExam } from "../../service/ExamService";
 
-function ModalNewExam({carregarExames,editExam}) {
+function ModalNewExam({carregarExames,editExam,setEditExam}) {
 
     const nameExam = useRef()
     const typeExam = useRef()
@@ -16,14 +16,16 @@ function ModalNewExam({carregarExames,editExam}) {
             preco.current.value = editExam.preco || "sem preco"
             description.current.value = editExam.description
     
+        }else{
+            limparFormulario()
         }
     },[editExam])
 
     const limparFormulario = ()=>{
-        nameExam.current.value = ""
-        typeExam.current.value = ""
-        preco.current.value = ""
-        description.current.value = ""
+        nameExam.current.value = null
+        typeExam.current.value = null
+        preco.current.value = null
+        description.current.value = null
     }
 
     const onSave = async () =>{
@@ -50,6 +52,22 @@ function ModalNewExam({carregarExames,editExam}) {
             Swal.fire("Erro", "Não foi possível salvar os dados", "error");
         }
     }
+
+    useEffect(() => {
+        const modalElement = document.getElementById("modalNewExam")
+
+        const handleClose = () => {
+            limparFormulario()
+            setEditExam(null)
+            
+        }
+
+        modalElement.addEventListener("hidden.bs.modal", handleClose)
+
+        return () => {
+            modalElement.removeEventListener("hidden.bs.modal", handleClose)
+        }
+    }, [])
 
 
 

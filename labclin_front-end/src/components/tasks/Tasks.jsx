@@ -36,9 +36,9 @@ function Tasks() {
           <i className="bi bi-box-arrow-left px-2"></i>Sair
         </button>
       </div>
-        <ModalNewAtendimento />
         <ModalNewClient />
         <ModalNewExam />
+        <ModalNewAtendimento />
     </div>
   );
 }

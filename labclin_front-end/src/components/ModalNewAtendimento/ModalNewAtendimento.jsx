@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { createAtendimento } from "../../service/Atendimento";
+import { createAtendimento, updateAtendimento } from "../../service/Atendimento";
 import Swal from "sweetalert2";
+import Atendimentos from "../../pages/Atendimentos";
 
-function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
+function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEditAtend}) {
 
     const date = useRef()
     const observations = useRef()
@@ -18,8 +19,8 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
     const [examsSelecionados,setExamsSelecionados] = useState([])
     const [clientSelecionado,setClientSelecionado] = useState(null)
 
-    const clientsFiltrados = clients.filter(client => client.name.toLowerCase().includes(buscaClient.toLowerCase()))
-    const examsFiltrados = exams.filter(exam => exam.name.toLowerCase().includes(buscaExam.toLocaleLowerCase()))
+    const clientsFiltrados = clients?.filter(client => client.name.toLowerCase().includes(buscaClient.toLowerCase()))
+    const examsFiltrados = exams?.filter(exam => exam.name.toLowerCase().includes(buscaExam.toLocaleLowerCase()))
 
     const [valorTotal,setValorTotal] = useState(0)
 
@@ -39,13 +40,19 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
 
         date.current.value = ""
         observations.current.value = ""
-        payment_type.current.value = ""
+        payment_type.current.value = null
         total_pay.current.value = ""
         setClientSelecionado(null)
         SetBuscaClient("")
+        setValorTotal(0)
         setExamsSelecionados([])
         setBuscaExam("")
 
+    }
+
+    const colocarNulo = ()=>{
+        setEditAtend(null)
+        console.log(editAtend)
     }
 
     const saveService = async ()=>{
@@ -57,23 +64,32 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
             total: valorTotal,
             payment_type: payment_type.current.value,
             total_pay: total_pay.current.value,
-            status: "pendente"
         }
 
         try{
+            if(editAtend){
+                const response = await updateAtendimento(dados)
+                console.log(response)
+                Swal.fire("Editado!", "Coleta Editada com Sucesso.", "success");
+                limpar_form()
+                getAllAtendimentos()
+            }else{
+                console.log(dados.payment_type)
+                const response = await createAtendimento(dados)
+                console.log(response)
+                Swal.fire("Adicionado!", "Coleta Adicionada com Sucesso.", "success");
+                limpar_form()
+                getAllAtendimentos()
+            }
 
-            const response = await createAtendimento(dados)
-            console.log(response)
-            Swal.fire("Adicionado!", "Coleta Adicionada com Sucesso.", "success");
-            limpar_form()
-            getAllAtendimentos()
+            
+            
 
         }catch(erro){
             console.log(erro)
-            Swal.fire("Erro!", "Erro Ao Adicionar Coleta", "error");
+            Swal.fire("Erro!", "Erro Ao Adicionar/Editar Coleta", "error");
         }
     }
-
 
     useEffect(()=>{
         const somaExams = examsSelecionados.reduce((acc, exam) => acc + exam.preco, 0)
@@ -81,9 +97,39 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
         setValorTotal(somaExams)
     },[examsSelecionados])
 
-    useEffect(()=>{
-        getAllAtendimentos()
-    },[])
+
+    useEffect(() => {
+        if(editAtend){
+            console.log(editAtend)
+            SetBuscaClient(editAtend.client.name)
+            setClientSelecionado(editAtend.client)
+            setExamsSelecionados(editAtend.exams)
+            payment_type.current.value = editAtend.payment_type
+            total_pay.current.value = editAtend.total_pay
+            setValorTotal(editAtend.total)
+            date.current.value = editAtend.date.substring(0, 10);
+        }else{
+            limpar_form()
+        }
+
+        
+    }, [editAtend]);
+
+    useEffect(() => {
+        const modalElement = document.getElementById("modalNewAtendimento")
+
+        const handleClose = () => {
+            limpar_form()
+            setEditAtend(null)
+        }
+
+        modalElement.addEventListener("hidden.bs.modal", handleClose)
+
+        return () => {
+            modalElement.removeEventListener("hidden.bs.modal", handleClose)
+        }
+    }, [])
+
 
   return (
     
@@ -132,7 +178,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
                         <div className="col-md-6 position-relative">
                             <label className="form-label fw-bold">Exames*</label>
                             <input type="text"
-                                placeholder="Exames"
+                                placeholder="Adicionar Novo Exame"
                                 value={buscaExam}
                                 className="form-control border-secondary-subtle bg-light"
                                 onChange={(valor) =>{
@@ -216,7 +262,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos}) {
 
                     <div className="d-flex justify-content-center">
                         <button onClick={()=>saveService()} className="btn btn-danger px-4 fw-bold text-center">
-                            Novo Atendimento
+                            {editAtend ? "Editar Coleta" : "Nova Coleta" }
                         </button>
                     </div>
                     

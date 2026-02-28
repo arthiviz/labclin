@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import AgendamentoCard from "../agendamentoCard/AgendamentoCard";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 
 function ListService({atendimentos,clients,exams,getAllAtendimentos}) {
-  
+  const[editAtend,setEditAtend] = useState()
 
   return (
     <div className="d-flex flex-column gap-4">
@@ -15,7 +16,7 @@ function ListService({atendimentos,clients,exams,getAllAtendimentos}) {
           <i className="bi bi-plus"></i> Novo Atendimento
         </button>
       </div>
-      <ModalNewAtendimento clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos}/>
+      <ModalNewAtendimento clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/>
       <div className="border border-2 shadow-sm p-3 rounded-3 bg-white">
         <div className="d-flex justify-content-between align-items-center ">
           <div className="d-flex gap-2 bg-light px-3  rounded-4">
@@ -47,7 +48,7 @@ function ListService({atendimentos,clients,exams,getAllAtendimentos}) {
         <div className="row g-4">
           {atendimentos.map((atendimento) => (
             <div key={atendimento.id} className="col-12 col-md-6 col-xl-4">
-              <AgendamentoCard atendimento={atendimento} />
+              <AgendamentoCard atendimento={atendimento} getAllAtendimentos={getAllAtendimentos} setEditAtend={setEditAtend}/>
             </div>
           ))}
         </div>

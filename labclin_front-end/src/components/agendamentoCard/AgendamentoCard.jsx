@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './agendamentoCard.css';
+import { deleteAtendimento } from '../../service/Atendimento';
+import Swal from 'sweetalert2';
+import ModalNewAtendimento from '../ModalNewAtendimento/ModalNewAtendimento';
 
-const AgendamentoCard = ({ atendimento }) => {
-  
+const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
+
+  const removerAtendimento = async (id)=>{
+    Swal.fire({
+                title: "Deseja Remover Essa Coleta?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "rgb(76, 76, 76)",
+                confirmButtonText: "Sim, Remover!"
+                }).then( async (result) => {
+                if (result.isConfirmed) {
+                    const response = await deleteAtendimento(id)
+                    .then(response=>{
+                      console.log(response)
+                      Swal.fire("Removida!", "Coleta Removida com Sucesso.", "success");
+                      getAllAtendimentos()
+                    }).catch(erro =>{
+                      console.log(erro)
+                      Swal.fire("Erro!", "Erro ao Remover Coleta", "error");
+                    })
+                }
+                });
+      
+  }
+
+  const onEditAtendimento = (atendimento)=>{
+      setEditAtend(atendimento)
+  }
 
   return (
     <div className="card shadow-sm border-0 rounded-4 overflow-hidden mb-4" 
@@ -18,8 +48,8 @@ const AgendamentoCard = ({ atendimento }) => {
             <span className="text-muted fw-bold">#{atendimento.id}</span>
           </div>
           <div className="d-flex gap-2">
-            <i className="bi bi-pencil-square text-primary cursor-pointer"></i>
-            <i className="bi bi-trash text-danger cursor-pointer"></i>
+            <button onClick={()=>{onEditAtendimento(atendimento)}} data-bs-toggle="modal" data-bs-target="#modalNewAtendimento" className='btn border border-0'><i className="bi bi-pencil-square text-primary cursor-pointer"></i></button>
+            <button onClick={()=>{removerAtendimento(atendimento.id)}} className='btn border border-0'><i className="bi bi-trash text-danger cursor-pointer"></i></button>
           </div>
         </div>
 

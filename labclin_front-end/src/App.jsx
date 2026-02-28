@@ -9,12 +9,23 @@ import "./index.css"
 import { useEffect, useState } from "react"
 import { listAllClients } from "./service/ClientService"
 import { listAllExams } from "./service/ExamService"
+import { listAllAtendimentos } from "./service/Atendimento"
 
 function App() {
 
   const [clients, setClients] = useState([]);
   const [exams,setExams] = useState([]);
+  const[atendimentos,setAtendimentos] = useState([])
     
+      const getAllAtendimentos = async () =>{
+        listAllAtendimentos()
+        .then(response =>{
+          setAtendimentos(response.data);
+        }).catch(error =>{
+          console.error("Erro ao carregar atendimentos:", error);
+        });
+      }
+
       const carregarUsuarios = () =>{
           listAllClients()
           .then(response => {
@@ -37,7 +48,7 @@ function App() {
       useEffect(()=>{
         carregarUsuarios()
         getAllExams()
-        
+        getAllAtendimentos()
       },[])
 
   return (
@@ -48,7 +59,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/pacientes" element={<Pacientes clients={clients} carregarUsuarios={carregarUsuarios}/>} />
               <Route path="/exames" element={<Exames exams={exams} getAllExams={getAllExams}/>} />
-              <Route path="/atendimentos" element={<Atendimentos clients={clients} exams={exams}/>} />
+              <Route path="/atendimentos" element={<Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos}/>} />
             </Route>
           
             <Route className="m-0 p-0" path="/login" element={<Login />} />

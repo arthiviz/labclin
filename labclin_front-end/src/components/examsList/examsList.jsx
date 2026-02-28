@@ -55,7 +55,7 @@ function ExamsList({exams,carregarExames}) {
                                 <th scope="col">descrição</th>
                                 <th scope="col" className="d-flex justify-content-end align-items-center gap-2">
                                     <button data-bs-toggle="modal" data-bs-target="#modalNewExam" className="btn btn-danger rounded-4"><i className="bi bi-plus"></i>Adicionar Exame</button>
-                                    <ModalNewExam  carregarExames = {carregarExames} editExam = {editExam}/>
+                                    <ModalNewExam  carregarExames = {carregarExames} editExam = {editExam} SetEditExam={SetEditExam}/>
                                 </th>
                             </tr>
                         </thead>

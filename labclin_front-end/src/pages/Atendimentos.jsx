@@ -3,18 +3,9 @@ import DashService from "../components/dashService/DashService";
 import ListService from "../components/listService/ListService";
 import { listAllAtendimentos } from "../service/Atendimento";
 
-function Atendimentos({clients,exams}) {
+function Atendimentos({clients,exams,atendimentos,getAllAtendimentos}) {
 
-  const [atendimentos, setAtendimentos] = useState([]);
-
-  const getAllAtendimentos = async () =>{
-    listAllAtendimentos()
-    .then(response =>{
-      setAtendimentos(response.data);
-    }).catch(error =>{
-      console.error("Erro ao carregar atendimentos:", error);
-    });
-  }
+  
 
   useEffect(()=>{
     getAllAtendimentos()
