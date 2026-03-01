@@ -49,7 +49,11 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
             }
         }catch(erro){
             console.log(erro)
-            Swal.fire("Erro", "Não foi possível salvar os dados", "error");
+            const mensagemServidor = erro.response && erro.response.data 
+                ? erro.response.data 
+                : "Erro desconhecido ao salvar";
+            
+            Swal.fire("Erro!", mensagemServidor, "error");
         }
     }
 

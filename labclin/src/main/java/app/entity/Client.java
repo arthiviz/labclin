@@ -3,6 +3,7 @@ package app.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,12 +23,11 @@ public class Client {
     private String name;
     @Column(length = 11, unique = true)
     private String CPF;
-    @Column(unique = true)
     private String email;
     @Column(length = 12)
     private String telephone;
     private String address;
-    @Column(nullable = false)
+    @NotNull
     private LocalDate birthDate;
 
 }

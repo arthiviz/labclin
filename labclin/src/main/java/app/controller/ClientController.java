@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:5173")
 public class ClientController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class ClientController {
             String msg = this.clientService.save(client);
             return new ResponseEntity<String>(msg,HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 

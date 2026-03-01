@@ -15,6 +15,7 @@ public class ExamService {
     ExamRepository examRepository;
 
     public String save(Exam exam){
+        this.verification(exam);
         exam.setId(null);
         this.examRepository.save(exam);
         return "Exame Adicionado Com Sucesso!";
@@ -34,6 +35,18 @@ public class ExamService {
     public Exam findById(Long id){
         Optional<Exam> exam = this.examRepository.findById(id);
         return exam.get();
+    }
+
+    public void verification(Exam exam){
+        if(exam.getName() == null || exam.getName().equals("")){
+            throw new RuntimeException("Insira o Nome do Exame");
+        }
+        else if(exam.getType().equals("null") || exam.getType() == null){
+            throw new RuntimeException("Insira o Tipo do Exame");
+        }
+        else if(exam.getPreco() == null){
+            throw new RuntimeException("Insira o Preço do Exame");
+        }
     }
 
 }

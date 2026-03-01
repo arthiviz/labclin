@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exam")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:5173")
 public class ExamController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class ExamController {
             String msg = this.examService.save(exam);
             return new ResponseEntity<String>(msg, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -44,6 +44,7 @@ function FormClient({carregarUsuarios,editClient}) {
 
 
     const handleSave = async () => {
+        console.log("nome:",name.current.value)
         const dados = {
             name: name.current.value,
             CPF: noDigits(CPF.current.value),
@@ -69,8 +70,13 @@ function FormClient({carregarUsuarios,editClient}) {
 
             
         } catch (erro) {
-            console.error(erro);
-            Swal.fire("Erro", "Não foi possível salvar os dados", "error");
+            console.log(erro)
+            const mensagemServidor = erro.response && erro.response.data 
+                ? erro.response.data 
+                : "Erro desconhecido ao salvar";
+            
+            Swal.fire("Erro!", mensagemServidor, "error");
+                    
         }
     };
 

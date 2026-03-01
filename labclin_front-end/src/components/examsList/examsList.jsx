@@ -4,9 +4,8 @@ import { useState } from "react";
 import { deleteExam } from "../../service/ExamService";
 import Swal from "sweetalert2";
 
-function ExamsList({exams,carregarExames}) {
+function ExamsList({exams,carregarExames,editExam,setEditExam}) {
     
-    const [editExam,SetEditExam] = useState()
 
     const onEdit = (Exam)=>{
         console.log(Exam)
@@ -55,7 +54,7 @@ function ExamsList({exams,carregarExames}) {
                                 <th scope="col">descrição</th>
                                 <th scope="col" className="d-flex justify-content-end align-items-center gap-2">
                                     <button data-bs-toggle="modal" data-bs-target="#modalNewExam" className="btn btn-danger rounded-4"><i className="bi bi-plus"></i>Adicionar Exame</button>
-                                    <ModalNewExam  carregarExames = {carregarExames} editExam = {editExam} SetEditExam={SetEditExam}/>
+                                    <ModalNewExam  carregarExames = {carregarExames} editExam = {editExam} setEditExam={setEditExam}/>
                                 </th>
                             </tr>
                         </thead>

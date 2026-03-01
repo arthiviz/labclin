@@ -18,7 +18,6 @@ public class ColetaService {
     ColetaRepository coletaRepository;
 
     public String save(Coleta coleta){
-        System.out.println("A VALOR DE TIPO DE PAGAMENTO É:"+ coleta.getPayment_type());
         this.verification(coleta);
         this.verificationStatus(coleta);
 

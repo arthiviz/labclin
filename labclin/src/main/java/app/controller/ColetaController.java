@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/coleta")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:5173")
 public class ColetaController {
 
     @Autowired
