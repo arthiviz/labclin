@@ -1,6 +1,7 @@
 import {  useEffect, useRef } from "react";
 import { createClient, updateClient } from "../../service/ClientService";
 import Swal from "sweetalert2";
+import { formatarCPF, formatarTelefone, noDigits } from "../../utils/masks";
 
 function FormClient({carregarUsuarios,editClient}) {
 
@@ -23,15 +24,30 @@ function FormClient({carregarUsuarios,editClient}) {
                 birthDate.current.value = editClient.birthDate.substring(0, 10);
             }
             
-            adress.current.value = editClient.adress || "";
+            adress.current.value = editClient.address || "";
         }
     }, [editClient]);
+
+    const handleChange = (e)=>{
+        let { name, value } = e.target;
+
+        if (name === "cpf") {
+            value = formatarCPF(value);
+            CPF.current.value = value;
+        }
+
+        if (name === "phone") {
+            value = formatarTelefone(value);
+            telephone.current.value = value;
+        }
+    }
+
 
     const handleSave = async () => {
         const dados = {
             name: name.current.value,
-            CPF: CPF.current.value,
-            telephone: telephone.current.value,
+            CPF: noDigits(CPF.current.value),
+            telephone: noDigits(telephone.current.value),
             email: email.current.value,
             birthDate: birthDate.current.value,
             adress: adress.current.value
@@ -39,7 +55,6 @@ function FormClient({carregarUsuarios,editClient}) {
 
         try {
             if (editClient) {
-                // LÓGICA DE EDIÇÃO (Chame seu service de Update aqui)
                 await updateClient(dados.name,dados.CPF,dados.telephone,dados.email,dados.birthDate,dados.adress,editClient.id)
                 Swal.fire("Atualizado!", "Paciente atualizado com sucesso.", "success");
                 carregarUsuarios();
@@ -88,7 +103,7 @@ function FormClient({carregarUsuarios,editClient}) {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label fw-bold">CPF</label>
-                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="000.000.000-00" ref={CPF}/>
+                            <input type="text" className="form-control border-secondary-subtle bg-light" name="cpf" placeholder="000.000.000-00" ref={CPF} onChange={handleChange}/>
                         </div>
                     </div>
 
@@ -96,7 +111,7 @@ function FormClient({carregarUsuarios,editClient}) {
                     <div className="row mb-3">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Telefone</label>
-                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="(00) 00000-0000" ref={telephone}/>
+                            <input type="text" className="form-control border-secondary-subtle bg-light" name="phone" placeholder="(00) 00000-0000" ref={telephone} onChange={handleChange}/>
                         </div>
                         <div className="col-md-6">
                             <label className="form-label fw-bold">E-mail</label>

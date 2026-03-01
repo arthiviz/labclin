@@ -3,6 +3,7 @@ import './agendamentoCard.css';
 import { deleteAtendimento } from '../../service/Atendimento';
 import Swal from 'sweetalert2';
 import ModalNewAtendimento from '../ModalNewAtendimento/ModalNewAtendimento';
+import { formatarCPF, formatarData, formatarTelefone } from '../../utils/masks';
 
 const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
 
@@ -61,18 +62,18 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
             <i className="bi bi-person me-3 ms-2 text-secondary"></i>
             <div>
               <p className="mb-0 fw-bold small">{atendimento.client.name}</p>
-              <small className="text-muted">{atendimento.client.CPF}</small>
+              <small className="text-muted">{formatarCPF(atendimento.client.CPF)}</small>
             </div>
           </div>
 
           <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-telephone me-3 ms-2 text-secondary"></i>
-            <span className="fw-semibold small">{atendimento.client.telephone}</span>
+            <span className="fw-semibold small">{formatarTelefone(atendimento.client.telephone)}</span>
           </div>
 
           <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-calendar-event me-3 ms-2 text-danger"></i>
-            <span className="fw-semibold small">{atendimento.date}</span>
+            <span className="fw-semibold small">{formatarData(atendimento.date)}</span>
           </div>
 
           <div className="d-flex align-items-center p-2 rounded-3 bg-light">

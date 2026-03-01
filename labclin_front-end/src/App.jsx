@@ -16,6 +16,7 @@ function App() {
   const [clients, setClients] = useState([]);
   const [exams,setExams] = useState([]);
   const[atendimentos,setAtendimentos] = useState([])
+  const[editAtend,setEditAtend] = useState()
     
       const getAllAtendimentos = async () =>{
         listAllAtendimentos()
@@ -56,10 +57,10 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+              <Route index element={<Home clients={clients} exams={exams} carregarUsuarios={carregarUsuarios} getAllAtendimentos={getAllAtendimentos} getAllExams={getAllExams} setEditAtend={setEditAtend}/>} />
               <Route path="/pacientes" element={<Pacientes clients={clients} carregarUsuarios={carregarUsuarios}/>} />
               <Route path="/exames" element={<Exames exams={exams} getAllExams={getAllExams}/>} />
-              <Route path="/atendimentos" element={<Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos}/>} />
+              <Route path="/atendimentos" element={<Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/>} />
             </Route>
           
             <Route className="m-0 p-0" path="/login" element={<Login />} />

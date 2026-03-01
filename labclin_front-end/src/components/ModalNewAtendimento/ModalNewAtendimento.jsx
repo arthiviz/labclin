@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createAtendimento, updateAtendimento } from "../../service/Atendimento";
 import Swal from "sweetalert2";
 import Atendimentos from "../../pages/Atendimentos";
+import { formatarCPF, formatarData } from "../../utils/masks";
 
 function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEditAtend}) {
 
@@ -50,11 +51,6 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
     }
 
-    const colocarNulo = ()=>{
-        setEditAtend(null)
-        console.log(editAtend)
-    }
-
     const saveService = async ()=>{
         const dados = {
             client : clientSelecionado,
@@ -68,7 +64,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
         try{
             if(editAtend){
-                const response = await updateAtendimento(dados)
+                const response = await updateAtendimento(dados,editAtend)
                 console.log(response)
                 Swal.fire("Editado!", "Coleta Editada com Sucesso.", "success");
                 limpar_form()
@@ -87,7 +83,11 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
         }catch(erro){
             console.log(erro)
-            Swal.fire("Erro!", "Erro Ao Adicionar/Editar Coleta", "error");
+            const mensagemServidor = erro.response && erro.response.data 
+                ? erro.response.data 
+                : "Erro desconhecido ao salvar";
+            
+            Swal.fire("Erro!", mensagemServidor, "error");
         }
     }
 
@@ -100,7 +100,6 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
     useEffect(() => {
         if(editAtend){
-            console.log(editAtend)
             SetBuscaClient(editAtend.client.name)
             setClientSelecionado(editAtend.client)
             setExamsSelecionados(editAtend.exams)
@@ -158,7 +157,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
                             {mostrarResultadoClient && buscaClient.length > 0 && (
                                 <ul className="list-group position-absolute w-100 shadow-sm" style={{ zIndex: 1000, maxHeight: '200px', overflowY: 'auto' }}>
-                                    {clientsFiltrados.length > 0 ? (
+                                    {clientsFiltrados?.length > 0 ? (
                                         clientsFiltrados.map((client,index)=>(
                                             <li key={client.id || index} className="list-group-item list-group-item-action" style={{cursor:"pointer"}} onClick={()=>{
                                                 SetBuscaClient(client.name)
@@ -166,7 +165,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
                                                 setMostrarResultadoClient(false)
                                             }}>
                                                 {client.name} <br />
-                                                <small className="">{client.CPF ? client.CPF :client.birthDate}</small>
+                                                <small className="">{client.CPF ? formatarCPF(client.CPF) :formatarData(client.birthDate)}</small>
                                             </li>
                                         ))
                                     ) :(
@@ -190,7 +189,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
                             {mostrarResultadoExam && buscaExam.length > 0 && (
                                 <ul className="list-group position-absolute w-100 shadow-sm" style={{ zIndex: 1000, maxHeight: '200px', overflowY: 'auto' }}>
-                                    {examsFiltrados.length > 0 ?(
+                                    {examsFiltrados?.length > 0 ?(
                                         examsFiltrados.map((exam,index) =>(
                                             <li key={exam.id || index} className="list-group-item list-group-item-action" style={{cursor:"pointer"}} onClick={()=>{
                                                 adicionarExam(exam)

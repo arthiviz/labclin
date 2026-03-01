@@ -3,7 +3,7 @@ import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 import ModalNewClient from "../ModalNewClient/ModalNewClient";
 import ModalNewExam from "../ModalNewExam/ModalNewExam";
 
-function Tasks() {
+function Tasks({carregarUsuarios,getAllExams,getAllAtendimentos,clients,exams,setEditAtend}) {
   return (
     <div
       className="bg-white rounded-4 border border-danger p-4"
@@ -36,9 +36,9 @@ function Tasks() {
           <i className="bi bi-box-arrow-left px-2"></i>Sair
         </button>
       </div>
-        <ModalNewClient />
-        <ModalNewExam />
-        <ModalNewAtendimento />
+        <ModalNewClient carregarUsuarios={carregarUsuarios}/>
+        <ModalNewExam carregarExames={getAllExams} />
+        <ModalNewAtendimento clients={clients} exams={exams}  getAllAtendimentos={getAllAtendimentos} setEditAtend={setEditAtend}/>
     </div>
   );
 }

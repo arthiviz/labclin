@@ -12,6 +12,13 @@ function ListClient({clients, carregarUsuarios}) {
         setEditClient(client)
     }
 
+    const formatarData = (dateString) => { 
+        if (!dateString) return "Sem data";
+        
+        const [ano, mes, dia] = dateString.split("-");
+        return `${dia}/${mes}/${ano}`;
+    };
+
     const deleteById = async (id) =>{
 
         Swal.fire({
@@ -67,7 +74,7 @@ function ListClient({clients, carregarUsuarios}) {
                                 <tr key={client.id || index}>
                                     <td>{client.name}</td>
                                     <td>{client.CPF || "-"}</td>
-                                    <td>{client.birthDate || "-"}</td>
+                                    <td>{formatarData(client.birthDate)|| "-"}</td>
                                     <td>{client.telephone || "-"}</td>
                                     <td className="d-flex gap-4 justify-content-end">
                                             <button onClick={()=> onEdit(client)} data-bs-toggle="modal" data-bs-target="#modalNewClient" className="btn btn-client btn-outline-primary rounded-4"><i className="bi bi-pencil-square"></i></button>

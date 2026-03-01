@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import AgendamentoCard from "../agendamentoCard/AgendamentoCard";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 
-function ListService({atendimentos,clients,exams,getAllAtendimentos}) {
-  const[editAtend,setEditAtend] = useState()
+function ListService({atendimentos,clients,exams,getAllAtendimentos,editAtend,setEditAtend}) {
+  
 
   return (
     <div className="d-flex flex-column gap-4">

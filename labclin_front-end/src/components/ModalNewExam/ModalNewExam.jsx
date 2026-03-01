@@ -59,7 +59,6 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
         const handleClose = () => {
             limparFormulario()
             setEditExam(null)
-            
         }
 
         modalElement.addEventListener("hidden.bs.modal", handleClose)

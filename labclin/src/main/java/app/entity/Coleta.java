@@ -1,12 +1,13 @@
 package app.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Coleta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id",nullable = false)
     private Client client;
     @ManyToMany
     @JoinTable(
@@ -28,19 +29,18 @@ public class Coleta {
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name = "exam_id")
     )
+    @NotNull
     private List<Exam> exams;
-    private Date date;
+    @NotNull
+    private LocalDate date;
     private String Observations;
+    @NotNull
     private Double total;
+    @NotNull
     private String payment_type;
+    @NotNull()
     private Double total_pay;
+    @NotNull
     private String Status;
 
-    public Double sum_total_exams(List<Exam> exams){
-        Double total = 0.0;
-        for (Exam exam: exams){
-            total += exam.getPreco();
-        }
-        return total;
-    }
 }

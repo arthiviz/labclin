@@ -11,7 +11,7 @@ export function createClient(name,CPF,telephone,email,birthDate,adress){
         email,
         telephone,
         birthDate,
-        adress
+        "address":adress
     })
 }
 
@@ -22,7 +22,7 @@ export function updateClient(name,CPF,telephone,email,birthDate,adress,id){
         telephone,
         email,
         birthDate,
-        adress
+        "address":adress
     })
 }
 
