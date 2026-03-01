@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/coleta")
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("https://labclin-fawn.vercel.app/:5173")
 public class ColetaController {
 
     @Autowired
