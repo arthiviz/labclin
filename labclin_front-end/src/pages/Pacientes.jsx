@@ -8,7 +8,7 @@ import { listAllClients } from "../service/ClientService";
 function Pacientes({clients,carregarUsuarios}) {
         
     return (
-        <div className="d-flex flex-column gap-5">
+        <div className="d-flex flex-column gap-4 container-fluid">
             <DashClient/>
             <FormClient carregarUsuarios = {carregarUsuarios}/>
             <ListClient clients = {clients} carregarUsuarios={carregarUsuarios}/>

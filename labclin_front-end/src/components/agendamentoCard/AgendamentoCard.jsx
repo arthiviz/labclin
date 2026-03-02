@@ -37,7 +37,7 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
 
   return (
     <div className="card shadow-sm border-0 rounded-4 overflow-hidden mb-4" 
-         style={{ borderLeft: '5px solid #dc3545', minWidth: '320px' }}>
+         style={{ borderLeft: '5px solid #dc3545' }}>
       
       <div className="card-body p-4">
         {/* Header */}
@@ -98,6 +98,7 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
                   <div className="accordion-body">
                     {atendimento.exams && atendimento.exams.length > 0 ? (
                       <ul className="list-group list-group-flush">
+                        
                         {atendimento.exams.map((exam, index) => (
                           <li key={exam.id || index} className="list-group-item border-0">
                             {exam.name}

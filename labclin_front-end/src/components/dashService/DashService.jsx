@@ -2,7 +2,8 @@ import "./DashBoard.css"
 
 function DashService() {
   return (
-    <div className="d-flex flex-wrap align-items-between gap-4">
+    <div className="row g-5">
+        <div className="col-12 col-md-4 col-xl-2">
             <div className="border border-danger p-3 rounded-4 bg-white cardService">
                 
                 
@@ -15,8 +16,8 @@ function DashService() {
                     <small className="text-muted">Atendimentos</small>
                 </div>
             </div>
-
-
+        </div>
+        <div className="col-12 col-md-4 col-xl-2">
             <div className="border border-danger p-3 rounded-4 bg-white cardService">
                 <div className="d-flex justify-content-between align-items-center">
                     <i className="bi bi-people text-danger"></i>
@@ -27,8 +28,8 @@ function DashService() {
                     <small className="text-muted">agendados</small>
                 </div>
             </div>
-
-
+        </div>
+        <div className="col-12 col-md-4 col-xl-2">
             <div className="border border border-danger p-3 rounded-4 bg-white cardService">
                 <div className="d-flex justify-content-between align-items-center">
                     
@@ -40,8 +41,8 @@ function DashService() {
                     <small className="text-muted">Em andamento</small>
                 </div>
             </div>
-
-
+        </div>
+        <div className="col-12 col-md-4 col-xl-2">
             <div className="border border border-danger p-3 rounded-4 bg-white cardService">
                 <div className="d-flex justify-content-between align-items-center">
                     
@@ -53,8 +54,8 @@ function DashService() {
                     <small className="text-muted">concluidos</small>
                 </div>
             </div>
-
-
+        </div>
+        <div className="col-12 col-md-4 col-xl-2">
             <div className="border border border-danger p-3 rounded-4 bg-white cardService">
                 <div className="d-flex justify-content-between align-items-center">
                     
@@ -66,8 +67,8 @@ function DashService() {
                     <small className="text-muted">cancelados</small>
                 </div>
             </div>
-
-
+        </div>
+        <div className="col-12 col-md-4 col-xl-2">
             <div className="border border border-danger p-3 rounded-4 bg-white cardService">
                 <div className="d-flex justify-content-between align-items-center">
                     <i className="bi bi-graph-up-arrow text-danger"></i>
@@ -78,7 +79,8 @@ function DashService() {
                     <small className="text-muted">Atendimentos</small>
                 </div>
             </div>
-
+        </div>
+            
         </div>
   );
 }

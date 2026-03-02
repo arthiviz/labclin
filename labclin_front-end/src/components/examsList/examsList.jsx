@@ -9,7 +9,7 @@ function ExamsList({exams,carregarExames,editExam,setEditExam}) {
 
     const onEdit = (Exam)=>{
         console.log(Exam)
-        SetEditExam(Exam)
+        setEditExam(Exam)
     }
 
     const onDelete = async (id)=>{
@@ -45,8 +45,9 @@ function ExamsList({exams,carregarExames,editExam,setEditExam}) {
             
             <div className="h-100 ">
                 <div className="border border-danger rounded-4 p-3 bg-white w-100 d-flex flex-column gap-3 shadow-sm h-100">
-                    <table className="table table-hover">
-                        <thead>
+                    <div className="overflow-auto" style={{maxHeight:450}}>
+                        <table className="table table-hover">
+                        <thead className="sticky-top bg-white">
                             <tr>
                                 <th scope="col">Nome do Exame</th>
                                 <th scope="col">Preço</th>
@@ -76,15 +77,17 @@ function ExamsList({exams,carregarExames,editExam,setEditExam}) {
                                 ))
                             
                             : <tr>
-                                <td>Nenhum Exame Cadastrado!</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td className="border-secondary-subtle border-bottom ">Nenhum Exame Cadastrado!</td>
+                                <td className="border-secondary-subtle border-bottom "></td>
+                                <td className="border-secondary-subtle border-bottom "></td>
+                                <td className="border-secondary-subtle border-bottom "></td>
+                                <td className="border-secondary-subtle border-bottom "></td>
                                 </tr>}
                             
                         </tbody>
                     </table>
+                    </div>
+                    
                 </div>
             </div>
         </div>

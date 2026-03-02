@@ -1,5 +1,6 @@
 // Remove tudo que não é número e coloca a formatação de CPF
 export const formatarCPF = (cpf) => {
+  if(!cpf) return null
   return cpf
     .replace(/\D/g, "")
     .replace(/(\d{3})(\d)/, "$1.$2")
@@ -9,6 +10,7 @@ export const formatarCPF = (cpf) => {
 };
 
 export const formatarTelefone = (telefone) => {
+  if(!telefone)return null
   return telefone
     .replace(/\D/g, "")
     .replace(/(\d{2})(\d)/, "($1) $2")

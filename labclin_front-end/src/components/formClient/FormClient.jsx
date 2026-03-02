@@ -15,8 +15,8 @@ function FormClient({carregarUsuarios,editClient}) {
     useEffect(() => {
         if (editClient) {
             name.current.value = editClient.name || "";
-            CPF.current.value = editClient.CPF || "";
-            telephone.current.value = editClient.telephone || "";
+            CPF.current.value = formatarCPF(editClient.CPF)  || "";
+            telephone.current.value = formatarTelefone(editClient.telephone)  || "";
             email.current.value = editClient.email || "";
             
             // Tratando a data para o formato AAAA-MM-DD

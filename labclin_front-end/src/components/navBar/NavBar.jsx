@@ -2,8 +2,18 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 
 function NavBar() {
+  const closeMenu = () => {
+    const navContent = document.getElementById('navContent');
+    if (navContent) {
+      // Importante: Verificamos se ele está aberto antes de tentar fechar
+      const bsCollapse = new window.bootstrap.Collapse(navContent, {
+        toggle: false
+      });
+      bsCollapse.hide();
+    }
+  };
   return (
-    <nav className="navbar navbar-expand-lg px-4 bg-white shadow-sm fixed-top" style={{height: "80px"}}>
+    <nav className="navbar navbar-expand-lg px-4 bg-white shadow-sm fixed-top" style={{minHeight: "80px"}}>
       <div className="container-fluid">
         
         {/* ESQUERDA: Logo */}
@@ -17,24 +27,24 @@ function NavBar() {
         </button>
 
         {/* CONTEÚDO DA NAVBAR */}
-        <div className="collapse navbar-collapse bg-white" id="navContent">
+        <div className="collapse navbar-collapse" id="navContent">
           
           {/* MEIO: Links (mx-auto centraliza no Bootstrap) */}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 gap-3">
             <li className="nav-item">
-              <Link className="nav-link" to="/">início</Link>
+              <Link onClick={closeMenu} className="nav-link" to="/">início</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/pacientes">Pacientes</Link>
+              <Link onClick={closeMenu} className="nav-link" to="/pacientes">Pacientes</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/exames">Exames</Link>
+              <Link onClick={closeMenu} className="nav-link" to="/exames">Exames</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/atendimentos">Atendimentos</Link>
+              <Link onClick={closeMenu} className="nav-link" to="/atendimentos">Atendimentos</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/relatorios">Relatórios</Link>
+              <Link onClick={closeMenu} className="nav-link" to="/relatorios">Relatórios</Link>
             </li>
           </ul>
 

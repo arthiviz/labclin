@@ -4,13 +4,13 @@ import Tasks from "../components/tasks/Tasks"
 
 function Home({carregarUsuarios,getAllAtendimentos,getAllExams,clients,exams,setEditAtend}){
     return(
-        <div className="d-flex flex-column gap-5 container-fluid px-5">
+        <div className="d-flex flex-column gap-5 container-fluid">
             <Dashboard/>
-            <div className="d-flex flex-wrap gap-4 justify-content-center">
-                <div style={{width: "60%", minWidth : "300px",}}>
+            <div className="row g-4">
+                <div className="col-12 col-md-6 col-lg-7" >
                      <TableDashboard/>
                 </div>
-                <div style={{width: "30%", minWidth : "300px",}}>
+                <div className="col-12 col-md-6 col-lg-5">
                     <Tasks clients={clients} exams={exams} carregarUsuarios={carregarUsuarios} getAllExams={getAllExams} getAllAtendimentos={getAllAtendimentos} setEditAtend={setEditAtend}/>
                 </div> 
             </div>

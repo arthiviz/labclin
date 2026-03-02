@@ -12,7 +12,7 @@ function Atendimentos({clients,exams,atendimentos,getAllAtendimentos,editAtend,s
   },[])
 
   return (
-    <div className="d-flex flex-column gap-4">
+    <div className="d-flex flex-column gap-4 container-fluid">
       <DashService />
       <ListService atendimentos={atendimentos} clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/>
     </div>

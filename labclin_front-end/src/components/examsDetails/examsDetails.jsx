@@ -1,6 +1,6 @@
 function ExamsDetails() {
     return (
-        <div className="card  border border-danger rounded-4 overflow-hidden w-100" style={{ maxWidth: '500px' }}>
+        <div className="card border border-danger rounded-4 overflow-hidden">
             {/* Cabeçalho Vermelho */}
             <div className="bg-danger p-3 text-white">
                 <h5 className="mb-0 fw-bold">Resumo Geral</h5>

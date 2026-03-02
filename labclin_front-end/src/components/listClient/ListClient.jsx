@@ -3,6 +3,7 @@ import ModalNewClient from '../ModalNewClient/ModalNewClient';
 import { useState } from 'react';
 import { deleteCLient } from '../../service/ClientService';
 import Swal from 'sweetalert2';
+import { formatarCPF, formatarTelefone } from '../../utils/masks';
 
 function ListClient({clients, carregarUsuarios}) {
 
@@ -44,14 +45,23 @@ function ListClient({clients, carregarUsuarios}) {
 
     return (
         <div className="bg-white rounded-4 border border-2 border-secondary-subtle shadow-sm p-4 gap-4">
-            <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex flex-column">
+            <div className="row g-4">
+                <div className="col-12 col-md-6">
+                    <div className="d-flex flex-column">
                     <strong>Lista de Pacientes</strong>
                     <small>Todos os pacientes cadastrados.</small>
                 </div>
-                <div className="d-flex gap-2">
-                    <input type="text" placeholder="Buscar paciente" className="form-control bg-light" />
-                    <button className="btn btn-danger" >Buscar</button>
+                </div>
+                <div className="col-12 col-md-6">
+                    <div className="row g-3">
+                        <div className="col-12 col-md-9">
+                            <input type="text" placeholder="Buscar paciente" className="form-control bg-light" />
+                        </div>
+                        <div className="col-12 col-md-3">
+                            <button className="btn btn-danger w-100" >Buscar</button>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
 
@@ -73,9 +83,9 @@ function ListClient({clients, carregarUsuarios}) {
                             clients.map((client,index) =>(
                                 <tr key={client.id || index}>
                                     <td>{client.name}</td>
-                                    <td>{client.CPF || "-"}</td>
+                                    <td>{formatarCPF(client?.CPF)  || "-"}</td>
                                     <td>{formatarData(client.birthDate)|| "-"}</td>
-                                    <td>{client.telephone || "-"}</td>
+                                    <td>{formatarTelefone(client?.telephone) || "-"}</td>
                                     <td className="d-flex gap-4 justify-content-end">
                                             <button onClick={()=> onEdit(client)} data-bs-toggle="modal" data-bs-target="#modalNewClient" className="btn btn-client btn-outline-primary rounded-4"><i className="bi bi-pencil-square"></i></button>
                                             <button onClick={()=> deleteById(client.id)} className="btn btn-client btn-outline-danger rounded-4"><i className="bi bi-trash"></i></button>

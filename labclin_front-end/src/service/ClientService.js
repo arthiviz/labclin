@@ -27,5 +27,6 @@ export function updateClient(name,CPF,telephone,email,birthDate,adress,id){
 }
 
 export function deleteCLient(id){
+    console.log(id)
     return api.delete(`/client/delete/${id}`)
 }

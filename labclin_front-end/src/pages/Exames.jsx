@@ -6,9 +6,20 @@ import { listAllExams } from "../service/ExamService";
 function Exames({exams,getAllExams,editExam,setEditExam}) {
 
     return (
-        <div className="d-flex gap-5 w-100 p-5">
-                <ExamsDetails/>
-                <ExamsList exams = {exams} carregarExames = {getAllExams} editExam={editExam} setEditExam={setEditExam}/>
+        <div className="container">
+            <div className="row g-4">
+                <div className="col-12 col-xl-5">
+                    <ExamsDetails/>
+                </div>
+                
+                <div className="col-12 col-xl-7">
+                    <ExamsList exams = {exams} carregarExames = {getAllExams} editExam={editExam} setEditExam={setEditExam}/>
+                </div>
+                
+            </div>
+            
+                
+                
         </div>
     );
 }

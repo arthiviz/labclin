@@ -55,7 +55,7 @@ function App() {
       },[])
 
   return (
-    <div className="min-vh-100t space-body bg-light">
+    <div className="min-vh-100 space-body bg-light">
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
