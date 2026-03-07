@@ -8,6 +8,9 @@ import { formatarCPF, formatarTelefone } from '../../utils/masks';
 function ListClient({clients, carregarUsuarios}) {
 
     const [editClient,setEditClient] = useState();
+
+    const [pesquisa,setPesquisa] = useState("")
+    const clientsFiltrados = clients?.filter(client => client.name.toLowerCase().includes(pesquisa.toLowerCase()))
     
     const onEdit = (client) =>{
         setEditClient(client)
@@ -55,7 +58,9 @@ function ListClient({clients, carregarUsuarios}) {
                 <div className="col-12 col-md-6">
                     <div className="row g-3">
                         <div className="col-12 col-md-9">
-                            <input type="text" placeholder="Buscar paciente" className="form-control bg-light" />
+                            <input type="text" placeholder="Buscar paciente" value={pesquisa} className="form-control bg-light" onChange={(valor)=>{
+                                setPesquisa(valor.target.value)
+                            }}/>
                         </div>
                         <div className="col-12 col-md-3">
                             <button className="btn btn-danger w-100" >Buscar</button>
@@ -78,9 +83,9 @@ function ListClient({clients, carregarUsuarios}) {
                         </tr>
                     </thead>
                     <tbody>
-                        {clients.length > 0 ?
+                        {clientsFiltrados.length > 0 ?
 
-                            clients.map((client,index) =>(
+                            clientsFiltrados.map((client,index) =>(
                                 <tr key={client.id || index}>
                                     <td>{client.name}</td>
                                     <td>{formatarCPF(client?.CPF)  || "-"}</td>

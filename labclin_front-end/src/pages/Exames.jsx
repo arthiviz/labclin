@@ -9,7 +9,7 @@ function Exames({exams,getAllExams,editExam,setEditExam}) {
         <div className="container">
             <div className="row g-4">
                 <div className="col-12 col-xl-5">
-                    <ExamsDetails/>
+                    <ExamsDetails exams={exams}/>
                 </div>
                 
                 <div className="col-12 col-xl-7">

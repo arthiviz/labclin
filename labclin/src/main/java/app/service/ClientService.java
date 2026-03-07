@@ -23,6 +23,7 @@ public class ClientService {
         return "Cliente Adicionado Com Sucesso!";
     }
     public String update(Client client, Long id){
+        this.verification(client);
         client.setId(id);
         this.clientRepository.save(client);
         return "Cliente Atualizado com Sucesso!";
@@ -32,7 +33,7 @@ public class ClientService {
         return "Cliente Deletado Com Sucesso!";
     }
     public List<Client> listAll(){
-        return this.clientRepository.findAll();
+        return this.clientRepository.findAllByOrderByNameAsc();
     }
     public Client findById(Long id){
         Optional<Client> client = this.clientRepository.findById(id);
@@ -45,6 +46,12 @@ public class ClientService {
         }
         else if(client.getBirthDate() == null){
             throw new RuntimeException("Ensira a Data De Nascimento do Paciente");
+        }
+        else if(!(client.getCPF() == null) && (client.getCPF().length() != 11)  ){
+            throw new RuntimeException("Insira um CPF válido");
+        }
+        else if(!(client.getTelephone() == null) && (client.getTelephone().length() != 11)){
+            throw new RuntimeException("Insira Um telefone Com Formato Válido");
         }
         else if(client.getBirthDate().isAfter(LocalDate.now())){
             throw new RuntimeException("Insira um Data de Nascimento válida");

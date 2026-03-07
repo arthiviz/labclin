@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { deleteExam, saveExam, updateExam } from "../../service/ExamService";
 
@@ -8,6 +8,8 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
     const typeExam = useRef()
     const preco = useRef()
     const description = useRef()
+
+    const[loading,seLoading] = useState(false)
 
     useEffect(()=>{
         if(editExam){
@@ -111,9 +113,16 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
                     
 
                         <div className="d-flex justify-content-center">
-                            <button onClick={onSave} className="btn btn-danger px-4 fw-bold text-center">
-                                {editExam ? "Atualizar Exame" : "Cadastrar Exame"}
-                            </button>
+                            {loading ?(
+                                <button onClick={onSave} className="btn btn-danger px-4 fw-bold text-center">
+                                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                    <span role="status">Carregando...</span>
+                                </button>
+                            ):(
+                                <button onClick={onSave} className="btn btn-danger px-4 fw-bold text-center">
+                                    {editExam ? "Atualizar Exame" : "Cadastrar Exame"}
+                                </button>
+                            )}
                         </div>
                         
                     </div>

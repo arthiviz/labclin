@@ -1,11 +1,14 @@
 import "./examsList.css"
 import ModalNewExam from "../ModalNewExam/ModalNewExam";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { deleteExam } from "../../service/ExamService";
 import Swal from "sweetalert2";
 
 function ExamsList({exams,carregarExames,editExam,setEditExam}) {
     
+    const [pesquisa,setPesquisa] = useState("")
+
+    const examsFiltrados = exams?.filter(exam => exam.name.toLowerCase().includes(pesquisa.toLocaleLowerCase()))
 
     const onEdit = (Exam)=>{
         console.log(Exam)
@@ -37,9 +40,11 @@ function ExamsList({exams,carregarExames,editExam,setEditExam}) {
 
     return (
         <div className="flex-grow-1 d-flex flex-column gap-3">
-            
+            <ModalNewExam  carregarExames = {carregarExames} editExam = {editExam} setEditExam={setEditExam}/>
             <div className="border border-2 rounded-4 p-3 bg-white w-100 d-flex shadow-sm">
-                <input type="text" className="form-control bg-light" placeholder="Buscar exames"/>
+                <input type="text" className="form-control bg-light" value={pesquisa} placeholder="Buscar exames" onChange={(valor)=>{
+                    setPesquisa(valor.target.value)
+                }}/>
                 <button className="btn btn-danger ms-2 rounded-4">Buscar</button>
             </div>
             
@@ -55,15 +60,14 @@ function ExamsList({exams,carregarExames,editExam,setEditExam}) {
                                 <th scope="col">descrição</th>
                                 <th scope="col" className="d-flex justify-content-end align-items-center gap-2">
                                     <button data-bs-toggle="modal" data-bs-target="#modalNewExam" className="btn btn-danger rounded-4"><i className="bi bi-plus"></i>Adicionar Exame</button>
-                                    <ModalNewExam  carregarExames = {carregarExames} editExam = {editExam} setEditExam={setEditExam}/>
                                 </th>
                             </tr>
                         </thead>
                         <tbody> 
 
-                            {exams.length > 0 ? 
+                            {examsFiltrados.length > 0 ? 
 
-                                exams.map((exam,index)=>(
+                                examsFiltrados.map((exam,index)=>(
                                     <tr key={exam.id || index} className="border-secondary-subtle border-bottom ">
                                         <td>{exam.name}</td>
                                         <td>R${exam.preco}</td>

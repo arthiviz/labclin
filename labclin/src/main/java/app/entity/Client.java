@@ -24,7 +24,7 @@ public class Client {
     @Column(length = 11, unique = true)
     private String CPF;
     private String email;
-    @Column(length = 12)
+    @Column(length = 11)
     private String telephone;
     private String address;
     @NotNull

@@ -34,13 +34,14 @@ public class ClientController {
             String msg = this.clientService.update(client,id);
             return new ResponseEntity<String>(msg,HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         try{
+            System.out.println("ID PARA SER DELETADO:"+id);
             String msg = this.clientService.delete(id);
             return new ResponseEntity<String>(msg,HttpStatus.OK);
         } catch (Exception e) {

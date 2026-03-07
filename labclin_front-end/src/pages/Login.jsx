@@ -1,12 +1,35 @@
 import {useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
+import { login } from "../service/User";
+import { useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 function Login(){
+    const username = useRef()
+    const password = useRef()
 
-    const navigate = useNavigate()
+    const[loading,setLoading] = useState(false)
 
-    function logar(){
-        navigate("/")
+    const logar = async () => {
+        try{
+            setLoading(true)
+            const response = await login(username.current.value,password.current.value)
+
+            const token = response.data.token
+
+            if(token){
+                localStorage.setItem("token",token)
+                window.location.href = "/"
+            }
+        }catch(erro){
+            console.log(erro)
+            Swal.fire("Erro", "Usuário ou senha inválidos", "error");
+        }
+        finally{
+            setLoading(false)
+        }
+        
+
     }
 
     return(
@@ -17,9 +40,18 @@ function Login(){
                 </div>
                 <div className="container gap-4 d-flex flex-column p-0">
                     <h1 className="text-center display-2">Login</h1>
-                    <input type="email" className="form-control" placeholder="Email"/>
-                    <input type="password" className="form-control" placeholder="Senha"/>
-                    <button onClick={() => {logar()}} className="btn btn-danger btn-lg rounded-4 w-100">Entrar</button>
+                    <input type="text" ref={username} className="form-control" placeholder="username"/>
+                    <input type="password" ref={password} className="form-control" placeholder="Senha"/>
+
+                    {loading ?(
+                        <button class="btn btn-danger btn-lg rounded-4 w-100">
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            <span role="status">Carregando...</span>
+                        </button>
+                    ):(
+                        <button onClick={() => {logar()}} className="btn btn-danger btn-lg rounded-4 w-100">Entrar</button>
+                    )}
+                    
                 </div>
                 
             </div>

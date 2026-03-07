@@ -21,6 +21,8 @@ public class ExamService {
         return "Exame Adicionado Com Sucesso!";
     }
     public String update(Exam exam, Long id){
+
+        this.verification(exam);
         exam.setId(id);
         this.examRepository.save(exam);
         return "Exame Atualizado com Sucesso!";
@@ -30,7 +32,7 @@ public class ExamService {
         return "Exame Deletado Com Sucesso!";
     }
     public List<Exam> listAll(){
-        return this.examRepository.findAll();
+        return this.examRepository.findAllByOrderByNameAsc();
     }
     public Exam findById(Long id){
         Optional<Exam> exam = this.examRepository.findById(id);

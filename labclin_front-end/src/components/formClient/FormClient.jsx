@@ -1,4 +1,4 @@
-import {  useEffect, useRef } from "react";
+import {  useEffect, useRef, useState } from "react";
 import { createClient, updateClient } from "../../service/ClientService";
 import Swal from "sweetalert2";
 import { formatarCPF, formatarTelefone, noDigits } from "../../utils/masks";
@@ -11,6 +11,8 @@ function FormClient({carregarUsuarios,editClient}) {
     const email = useRef();
     const birthDate = useRef();
     const adress = useRef();
+    const[loading,setLoading] = useState(false)
+
 
     useEffect(() => {
         if (editClient) {
@@ -55,6 +57,7 @@ function FormClient({carregarUsuarios,editClient}) {
         };
 
         try {
+            setLoading(true)
             if (editClient) {
                 await updateClient(dados.name,dados.CPF,dados.telephone,dados.email,dados.birthDate,dados.adress,editClient.id)
                 Swal.fire("Atualizado!", "Paciente atualizado com sucesso.", "success");
@@ -77,6 +80,8 @@ function FormClient({carregarUsuarios,editClient}) {
             
             Swal.fire("Erro!", mensagemServidor, "error");
                     
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -137,10 +142,17 @@ function FormClient({carregarUsuarios,editClient}) {
                         </div>
                     </div>
 
+                    {loading ?(
+                        <button onClick={handleSave} className="btn btn-danger px-4 fw-bold">
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            <span role="status">Carregando...</span>
+                        </button>
+                    ):(
+                        <button onClick={handleSave} className="btn btn-danger px-4 fw-bold">
+                            {editClient ? "Salvar Alterações" : "Cadastrar Cliente"}
+                        </button>
+                    )}
                     
-                    <button onClick={handleSave} className="btn btn-danger px-4 fw-bold">
-                        {editClient ? "Salvar Alterações" : "Cadastrar Cliente"}
-                    </button>
                 </div>
                 
                 

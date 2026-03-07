@@ -11,6 +11,8 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
     const payment_type = useRef()
     const total_pay = useRef()
 
+    const[loading,setLoading] = useState(false)
+
     const [buscaClient,SetBuscaClient] = useState("")
     const[buscaExam,setBuscaExam] = useState("")
 
@@ -60,11 +62,13 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
             total: valorTotal,
             payment_type: payment_type.current.value,
             total_pay: total_pay.current.value,
+            status:null,
         }
 
         try{
+            setLoading(true)
             if(editAtend){
-                const response = await updateAtendimento(dados,editAtend)
+                const response = await updateAtendimento(dados,editAtend.id)
                 console.log(response)
                 Swal.fire("Editado!", "Coleta Editada com Sucesso.", "success");
                 limpar_form()
@@ -86,8 +90,10 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
             const mensagemServidor = erro.response && erro.response.data 
                 ? erro.response.data 
                 : "Erro desconhecido ao salvar";
-            
+            console.log(mensagemServidor)
             Swal.fire("Erro!", mensagemServidor, "error");
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -258,11 +264,18 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
                             <textarea ref={observations} className="form-control border-secondary-subtle bg-light" placeholder="Observações adicionais"></textarea>
                         </div>
                     </div>
-
                     <div className="d-flex justify-content-center">
-                        <button onClick={()=>saveService()} className="btn btn-danger px-4 fw-bold text-center">
-                            {editAtend ? "Editar Coleta" : "Nova Coleta" }
-                        </button>
+                        {loading ?(
+                            <button onClick={()=>saveService()} className="btn btn-danger px-4 fw-bold text-center">
+                                <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                <span role="status">Carregando...</span>
+                            </button>
+                        ):(
+                            <button onClick={()=>saveService()} className="btn btn-danger px-4 fw-bold text-center">
+                                {editAtend ? "Editar Coleta" : "Nova Coleta" }
+                            </button>
+                        )}
+                        
                     </div>
                     
                 </div>

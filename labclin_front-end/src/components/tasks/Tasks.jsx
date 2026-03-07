@@ -4,6 +4,11 @@ import ModalNewClient from "../ModalNewClient/ModalNewClient";
 import ModalNewExam from "../ModalNewExam/ModalNewExam";
 
 function Tasks({carregarUsuarios,getAllExams,getAllAtendimentos,clients,exams,setEditAtend}) {
+
+  const logout = ()=>{
+    localStorage.removeItem("token")
+    window.location.href = "/login"
+  }
   return (
     <div
       className="bg-white rounded-4 border border-danger p-4"
@@ -32,7 +37,7 @@ function Tasks({carregarUsuarios,getAllExams,getAllAtendimentos,clients,exams,se
         <button className="btn border-secondary-subtle btn-outline-dark border border-2 w-100">
           <i className="bi bi-clipboard-check"></i>Novo Relatório
         </button>
-        <button className="btn border-secondary-subtle btn-dark border border-2 w-100">
+        <button className="btn border-secondary-subtle btn-dark border border-2 w-100" onClick={logout}>
           <i className="bi bi-box-arrow-left px-2"></i>Sair
         </button>
       </div>

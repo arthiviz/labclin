@@ -3,7 +3,34 @@ import AgendamentoCard from "../agendamentoCard/AgendamentoCard";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 
 function ListService({atendimentos,clients,exams,getAllAtendimentos,editAtend,setEditAtend}) {
-  
+
+const [pesquisa,setPesquisa] = useState("")
+
+const [atendimentosFiltrados, setAtendimentosFiltrados] = useState([]);
+
+const [botaoClicado,setBotaoClicado] = useState("todos")
+
+useEffect(() => {
+  if (atendimentos) {
+    setAtendimentosFiltrados(atendimentos);
+  }
+}, [atendimentos]);
+
+useEffect(() => {
+  const filtrados = atendimentos?.filter(atendimento => 
+    atendimento.client.name.toLowerCase().includes(pesquisa.toLowerCase())
+  );
+  setAtendimentosFiltrados(filtrados);
+}, [pesquisa, atendimentos]);
+
+const filtrarStatus = (status) => {
+  if (status === "") {
+    setAtendimentosFiltrados(atendimentos);
+  } else {
+    const filtrados = atendimentos?.filter(atendimento => atendimento?.status === status);
+    setAtendimentosFiltrados(filtrados);
+  }
+};
 
   return (
     <div className="d-flex flex-column gap-4 container-fluid">
@@ -21,33 +48,27 @@ function ListService({atendimentos,clients,exams,getAllAtendimentos,editAtend,se
 
         <div className="d-flex flex-wrap justify-content-between align-items-center ">
 
-          <div className="d-flex flex-wrap gap-2 bg-light px-3 rounded-4 row g-2">
+          <div className="row bg-light rounded rounded-4">
 
-            <div className="col-12 col-md-4 col-lg-4 col-xl-2">
-              <button className="btn btn-sm btn-danger rounded-4">
-                Todos(7)
+            <div className="col-12 col-md-6 col-lg-3">
+              <button className={`btn btn-sm btn-white rounded-4 ${botaoClicado === "todos" ? "btn-danger" : ""}`} onClick={()=>{filtrarStatus(""),setBotaoClicado("todos")}}>
+                Ver Todos
+              </button>
+            </div>
+            <div className="col-12 col-md-6 col-lg-3">
+              <button className={`btn btn-sm btn-white rounded-4 ${botaoClicado === "agendado" ? "btn-danger" : ""}`} onClick={()=>{filtrarStatus("agendado"),setBotaoClicado("agendado")}}>
+                Agendados
+              </button>
+            </div>
+            <div className="col-12 col-md-6 col-lg-3">
+              <button className={`btn btn-sm btn-white rounded-4 ${botaoClicado === "concluido" ? "btn-danger" : ""}`} onClick={()=>{filtrarStatus("concluido"),setBotaoClicado("concluido")}}>
+                Concluidos
               </button>
             </div>
 
-            <div className="col-12 col-md-4 col-lg-4 col-xl-2">
-              <button className="btn btn-sm btn-white rounded-4">
-                Agendados(3)
-              </button>
-            </div>
-            <div className="col-12 col-md-4 col-lg-4 col-xl-2">
-              <button className="btn btn-sm btn-white rounded-4">
-                Concluidos(2)
-              </button>
-            </div>
-
-            <div className="col-12 col-md-4 col-lg-6 col-xl-2">
-              <button className="btn btn-sm btn-white rounded-4">
-                Cancelados(1)
-              </button>
-            </div>
-            <div className="col-12 col-md-4 col-lg-6 col-xl-3">
-              <button className="btn btn-sm btn-white rounded-4 d-flex">
-                Em Andamento(1)
+            <div className="col-12 col-md-6 col-lg-3">
+              <button className={`btn btn-sm btn-white rounded-4 ${botaoClicado === "cancelado" ? "btn-danger" : ""}`} onClick={()=>{filtrarStatus("cancelado"),setBotaoClicado("cancelado")}}>
+                Cancelados
               </button>
             </div>
             
@@ -59,11 +80,16 @@ function ListService({atendimentos,clients,exams,getAllAtendimentos,editAtend,se
           </div>
         </div>
       </div>
+      <div>
+        <input type="text" placeholder="Pesquisar Coleta..." className="form-control"  value={pesquisa} onChange={(valor)=>{
+            setPesquisa(valor.target.value)
+        }}/>
+      </div>
 
       <div className="container-fluid p-0">
         <div className="row g-4">
-          {atendimentos && atendimentos.length > 0 ?(
-              atendimentos.map((atendimento) => (
+          {atendimentosFiltrados && atendimentosFiltrados.length > 0 ?(
+              atendimentosFiltrados.map((atendimento) => (
                 <div key={atendimento.id} className="col-12 col-md-6 col-xl-4">
                   <AgendamentoCard atendimento={atendimento} getAllAtendimentos={getAllAtendimentos} setEditAtend={setEditAtend}/>
                 </div>

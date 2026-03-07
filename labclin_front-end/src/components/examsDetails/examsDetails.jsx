@@ -1,4 +1,4 @@
-function ExamsDetails() {
+function ExamsDetails({exams}) {
     return (
         <div className="card border border-danger rounded-4 overflow-hidden">
             {/* Cabeçalho Vermelho */}
@@ -13,7 +13,7 @@ function ExamsDetails() {
                 {/* Linhas de Dados */}
                 <div className="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
                 <span className="text-secondary fw-semibold">Total de Exames</span>
-                <span className="fs-5 fw-bold">8</span>
+                <span className="fs-5 fw-bold">{exams.length}</span>
                 </div>
 
                 <div className="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">

@@ -26,10 +26,10 @@ export function updateAtendimento(dados,id){
         "client":dados.client,
         "exams": dados.exams,
         "date": dados.date,
-        "ob": dados.date,
+        "status": dados.status,
         "observations": dados.observation,
         "total": dados.total,
-        "paymennt_type": dados.payment_type,
+        "payment_type": dados.payment_type,
         "total_pay": dados.total_pay,
     })
 }

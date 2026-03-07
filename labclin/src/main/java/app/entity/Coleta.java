@@ -38,9 +38,9 @@ public class Coleta {
     private Double total;
     @NotNull
     private String payment_type;
-    @NotNull()
+    @NotNull
     private Double total_pay;
     @NotNull
-    private String Status;
+    private String status;
 
 }

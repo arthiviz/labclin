@@ -34,7 +34,7 @@ public class ColetaController {
             String msg = this.coletaService.update(coleta,id);
             return new ResponseEntity<String>(msg, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 

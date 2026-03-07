@@ -3,6 +3,7 @@ import TableDashboard from "../components/tableDashboard/tableDashboard"
 import Tasks from "../components/tasks/Tasks"
 
 function Home({carregarUsuarios,getAllAtendimentos,getAllExams,clients,exams,setEditAtend}){
+
     return(
         <div className="d-flex flex-column gap-5 container-fluid">
             <Dashboard/>

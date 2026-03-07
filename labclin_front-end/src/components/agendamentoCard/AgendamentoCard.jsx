@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './agendamentoCard.css';
-import { deleteAtendimento } from '../../service/Atendimento';
+import { deleteAtendimento, updateAtendimento } from '../../service/Atendimento';
 import Swal from 'sweetalert2';
 import ModalNewAtendimento from '../ModalNewAtendimento/ModalNewAtendimento';
 import { formatarCPF, formatarData, formatarTelefone } from '../../utils/masks';
 
 const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
+
+  const[loading,setLoading] = useState(false)
 
   const removerAtendimento = async (id)=>{
     Swal.fire({
@@ -30,6 +32,22 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
                 });
       
   }
+  
+  const updateStatus = async (atend,newstatus)=>{
+    atend.status = newstatus
+    try{
+      setLoading(true)
+      const response = await updateAtendimento(atend,atend.id)
+      Swal.fire("Sucesso!", "Status Atualizado com Sucesso", "success");
+      getAllAtendimentos()
+    }catch(erro){
+      console.log(erro)
+      Swal.fire("Erro!", "Erro ao Atualizar Status", "error");
+    }finally{
+      setLoading(false)
+    }
+  }
+
 
   const onEditAtendimento = (atendimento)=>{
       setEditAtend(atendimento)
@@ -48,10 +66,16 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
             </span>
             <span className="text-muted fw-bold">#{atendimento.id}</span>
           </div>
-          <div className="d-flex gap-2">
-            <button onClick={()=>{onEditAtendimento(atendimento)}} data-bs-toggle="modal" data-bs-target="#modalNewAtendimento" className='btn border border-0'><i className="bi bi-pencil-square text-primary cursor-pointer"></i></button>
-            <button onClick={()=>{removerAtendimento(atendimento.id)}} className='btn border border-0'><i className="bi bi-trash text-danger cursor-pointer"></i></button>
+          <div className='d-flex align-items-center justify-conter-between'>
+            <div>
+              <span className={`badge rounded-pill ${atendimento.status == "concluido" ? "text-bg-success" : atendimento.status == "agendado" ? "text-bg-primary" :atendimento.status == "pendente" ? "text-bg-warning" : atendimento.status === "cancelado" ? "text-bg-danger" : "text-bg-secondary"}`}>{atendimento.status ||" Status não informado"} </span>
+            </div>
+            <div className="d-flex gap-2">
+              <button onClick={()=>{onEditAtendimento(atendimento)}} data-bs-toggle="modal" data-bs-target="#modalNewAtendimento" className='btn border border-0'><i className="bi bi-pencil-square text-primary cursor-pointer"></i></button>
+              <button onClick={()=>{removerAtendimento(atendimento.id)}} className='btn border border-0'><i className="bi bi-trash text-danger cursor-pointer"></i></button>
+            </div>
           </div>
+          
         </div>
 
         <h4 className="fw-bold mb-4">{atendimento.client.name}</h4>
@@ -119,8 +143,28 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
           <p className="small text-muted mb-2">Atualizar status:</p>
           <div className="d-flex gap-2">
             
-            <button className="btn btn-outline-success btn-sm px-3 fw-bold">Concluir</button>
-            <button className="btn btn-outline-danger btn-sm px-3 fw-bold">Cancelar</button>
+            {loading ?(
+              <button className="btn btn-outline-success btn-sm px-3 fw-bold">
+                <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Carregando...</span>
+              </button>
+            ):(
+              <button className="btn btn-outline-success btn-sm px-3 fw-bold" onClick={()=>{
+                  updateStatus(atendimento,"concluido")
+              }}>Concluir</button>
+            )}
+            {loading ?(
+                <button className="btn btn-outline-danger btn-sm px-3 fw-bold">
+                  <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                  <span role="status">Carregando...</span>
+                </button>
+            ):(
+                <button className="btn btn-outline-danger btn-sm px-3 fw-bold" onClick={()=>{
+                updateStatus(atendimento,"cancelado")
+              }}>Cancelar</button>
+            )}
+            
+            
           </div>
         </div>
       </div>

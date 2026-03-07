@@ -27,6 +27,8 @@ public class ColetaService {
 
     }
     public String update(Coleta coleta, Long id){
+        this.verificationStatus(coleta);
+        this.verification(coleta);
         coleta.setId(id);
         this.coletaRepository.save(coleta);
         return "Coleta Atualizado com Sucesso!";
@@ -56,7 +58,7 @@ public class ColetaService {
             throw new RuntimeException(("Selecione a Data Da Coleta"));
         }
 
-        else if (coleta.getPayment_type().equals("null") || coleta.getPayment_type() == null) {
+        else if (coleta.getPayment_type() == null || coleta.getPayment_type().equals("null")) {
             throw new RuntimeException("Selecione o Tipo de Pagamento");
         }
 
