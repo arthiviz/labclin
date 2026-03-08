@@ -14,7 +14,13 @@ function NavBar() {
     }
   };
 
-  const[pagSelecionada,setPagSelecionada] = useState("home")
+  const[pagSelecionada,setPagSelecionada] = useState("")
+
+  useState(()=>{
+      if(pagSelecionada === ""){
+        setPagSelecionada("home")
+      }
+  },[])
 
 
   return (
