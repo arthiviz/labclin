@@ -14,7 +14,7 @@ function NavBar() {
     }
   };
 
-  const[pagSelecionada,setPagSelecionada] = useState("pacientes")
+  const[pagSelecionada,setPagSelecionada] = useState("home")
 
 
   return (
