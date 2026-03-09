@@ -14,14 +14,6 @@ function NavBar() {
     }
   };
 
-  const[pagSelecionada,setPagSelecionada] = useState("")
-
-  useState(()=>{
-      if(pagSelecionada === ""){
-        setPagSelecionada("home")
-      }
-  },[])
-
 
   return (
     <nav className="navbar navbar-expand-lg px-4 bg-white shadow-sm fixed-top" style={{minHeight: "80px"}}>
@@ -29,7 +21,7 @@ function NavBar() {
         
         {/* ESQUERDA: Logo */}
         <Link className="navbar-brand" to="/">
-          <img src={Logo} onClick={()=>{setPagSelecionada("home")}} alt="Logo" height="40" />
+          <img src={Logo} alt="Logo" height="40" />
         </Link>
 
         {/* BOTÃO MOBILE (Hambúrguer) */}
@@ -43,34 +35,19 @@ function NavBar() {
           {/* MEIO: Links (mx-auto centraliza no Bootstrap) */}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 gap-3">
             <li className="nav-item">
-              <Link onClick={()=>{
-                closeMenu()
-                setPagSelecionada("home")
-              }} className={`nav-link ${pagSelecionada === "home" && "border-bottom border-danger"}`} to="/">início</Link>
+              <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/" && "border-bottom border-danger"}`} to="/">início</Link>
             </li>
             <li className="nav-item">
-              <Link onClick={()=>{
-                closeMenu()
-                setPagSelecionada("pacientes")
-                }} className={`nav-link ${pagSelecionada === "pacientes" && "border-bottom border-danger"}`} to="/pacientes">Pacientes</Link>
+              <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/pacientes" && "border-bottom border-danger"}`} to="/pacientes">Pacientes</Link>
             </li>
             <li className="nav-item">
-              <Link onClick={()=>{
-                closeMenu()
-                setPagSelecionada("exames")
-                }} className={`nav-link ${pagSelecionada === "exames" && "border-bottom border-danger"}`} to="/exames">Exames</Link>
+              <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/exames" && "border-bottom border-danger"}`} to="/exames">Exames</Link>
             </li>
             <li className="nav-item">
-              <Link onClick={()=>{
-                closeMenu()
-                setPagSelecionada("atendimentos")
-                }} className={`nav-link ${pagSelecionada === "atendimentos" && "border-bottom border-danger"}`} to="/atendimentos">Atendimentos</Link>
+              <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/atendimentos" && "border-bottom border-danger"}`} to="/atendimentos">Atendimentos</Link>
             </li>
             <li className="nav-item">
-              <Link onClick={()=>{
-                closeMenu()
-                setPagSelecionada("relatorios")
-                }} className={`nav-link ${pagSelecionada === "relatorios" && "border-bottom border-danger"}`} to="/relatorios">Relatórios</Link>
+              <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/relatorios" && "border-bottom border-danger"}`} to="/relatorios">Relatórios</Link>
             </li>
           </ul>
 

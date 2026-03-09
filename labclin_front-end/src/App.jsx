@@ -60,11 +60,11 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={ <ProtectRoute><Home clients={clients} exams={exams} carregarUsuarios={carregarUsuarios} getAllAtendimentos={getAllAtendimentos} getAllExams={getAllExams} setEditAtend={setEditAtend}/> </ProtectRoute>} />
-              <Route path="/pacientes" element={ <ProtectRoute> <Pacientes clients={clients} carregarUsuarios={carregarUsuarios}/></ProtectRoute>} />
-              <Route path="/exames" element={ <ProtectRoute> <Exames exams={exams} getAllExams={getAllExams} editExam={editExam} setEditExam={setEditExam}/></ProtectRoute> } />
-              <Route path="/atendimentos" element={ <ProtectRoute> <Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/></ProtectRoute>} />
-              <Route path="/relatorios" element={ <ProtectRoute> <Relatorios/></ProtectRoute>}/>
+              <Route index element={<ProtectRoute> <Home clients={clients} exams={exams} carregarUsuarios={carregarUsuarios} getAllAtendimentos={getAllAtendimentos} getAllExams={getAllExams} setEditAtend={setEditAtend}/></ProtectRoute>} />
+              <Route path="/pacientes" element={<ProtectRoute> <Pacientes clients={clients} carregarUsuarios={carregarUsuarios}/></ProtectRoute>} />
+              <Route path="/exames" element={<ProtectRoute> <Exames exams={exams} getAllExams={getAllExams} editExam={editExam} setEditExam={setEditExam}/></ProtectRoute>} />
+              <Route path="/atendimentos" element={<ProtectRoute> <Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/></ProtectRoute>} />
+              <Route path="/relatorios" element={ <ProtectRoute><Relatorios/></ProtectRoute> }/>
             </Route>
           
             <Route className="m-0 p-0" path="/login" element={<Login />} />
