@@ -42,5 +42,13 @@ public class Coleta {
     private Double total_pay;
     @NotNull
     private String status;
+    private String convenio;
+    @ManyToMany
+    @JoinTable(
+            name = "coleta_medic",
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name = "medic_id")
+    )
+    private List<Medic> medics;
 
 }

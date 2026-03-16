@@ -95,6 +95,19 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
             <span className="fw-semibold small">{formatarTelefone(atendimento.client.telephone)}</span>
           </div>
 
+          {atendimento.medics && atendimento.medics.length > 0 &&(
+            <div className="d-flex align-items-center p-2 rounded-3 bg-light">
+            <i className="bi bi-prescription2 me-3 ms-2 text-secondary"></i>
+            {atendimento.medics.map((medic,index)=>(
+              <div key={medic.id || index}>
+                <p className="mb-0 fw-bold small">{medic.name}</p>
+                <small className="text-muted">{medic.CRM}</small>
+              </div>
+            ))}
+            
+          </div>
+          )}
+
           <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-calendar-event me-3 ms-2 text-danger"></i>
             <span className="fw-semibold small">{formatarData(atendimento.date)}</span>
@@ -102,7 +115,7 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
 
           <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-currency-dollar me-3 ms-2 text-primary"></i>
-            <span className="fw-semibold small">R${atendimento.total || "não informado"}</span>
+            <span className="fw-semibold small">R${atendimento.total}/R${atendimento.total_pay}</span>
           </div>
 
           

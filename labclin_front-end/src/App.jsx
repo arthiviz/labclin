@@ -12,14 +12,18 @@ import { listAllExams } from "./service/ExamService"
 import { listAllAtendimentos } from "./service/Atendimento"
 import Relatorios from "./pages/Relatorios"
 import ProtectRoute from "./components/protectRoute/ProtectRoute"
+import Medicos from "./pages/Medicos"
+import { findAllMedic } from "./service/Medics"
 
 function App() {
 
   const [clients, setClients] = useState([]);
   const [exams,setExams] = useState([]);
   const[atendimentos,setAtendimentos] = useState([])
+  const[medics,setMedics] = useState([]);
   const[editAtend,setEditAtend] = useState()
   const [editExam,setEditExam] = useState()
+  const [editMedic,setEditMedic] = useState()
     
       const getAllAtendimentos = async () =>{
         listAllAtendimentos()
@@ -48,11 +52,20 @@ function App() {
             console.log(error)
         })
     }
+    const carregarMedicos = async ()=>{
+      findAllMedic()
+      .then(respnse =>{
+        setMedics(respnse.data)
+      }).catch(error =>{
+        console.log(error)
+      })
+    }
     
       useEffect(()=>{
         carregarUsuarios()
         getAllExams()
         getAllAtendimentos()
+        carregarMedicos()
       },[])
 
   return (
@@ -60,10 +73,11 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<ProtectRoute> <Home clients={clients} exams={exams} carregarUsuarios={carregarUsuarios} getAllAtendimentos={getAllAtendimentos} getAllExams={getAllExams} setEditAtend={setEditAtend}/></ProtectRoute>} />
+              <Route index element={<ProtectRoute> <Home clients={clients} exams={exams} carregarUsuarios={carregarUsuarios} getAllAtendimentos={getAllAtendimentos} getAllExams={getAllExams} setEditAtend={setEditAtend} atendimentos={atendimentos}/></ProtectRoute>} />
               <Route path="/pacientes" element={<ProtectRoute> <Pacientes clients={clients} carregarUsuarios={carregarUsuarios}/></ProtectRoute>} />
               <Route path="/exames" element={<ProtectRoute> <Exames exams={exams} getAllExams={getAllExams} editExam={editExam} setEditExam={setEditExam}/></ProtectRoute>} />
-              <Route path="/atendimentos" element={<ProtectRoute> <Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/></ProtectRoute>} />
+              <Route path="/medicos" element={<Medicos medics={medics} carregarMedicos={carregarMedicos} editMedic={editMedic} setEditMedic={setEditMedic}/>}/>
+              <Route path="/atendimentos" element={<ProtectRoute> <Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}medics={medics}/></ProtectRoute>} />
               <Route path="/relatorios" element={ <ProtectRoute><Relatorios/></ProtectRoute> }/>
             </Route>
           

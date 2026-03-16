@@ -9,7 +9,7 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
     const preco = useRef()
     const description = useRef()
 
-    const[loading,seLoading] = useState(false)
+    const[loading,setLoading] = useState(false)
 
     useEffect(()=>{
         if(editExam){
@@ -37,6 +37,7 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
             preco: preco.current.value,
             description: description.current.value
         }
+        setLoading(true)
         try{
             if(editExam){
                 await updateExam(dados.name,dados.typeExam,dados.preco,dados.description,editExam.id)
@@ -56,6 +57,8 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
                 : "Erro desconhecido ao salvar";
             
             Swal.fire("Erro!", mensagemServidor, "error");
+        }finally{
+            setLoading(false)
         }
     }
 

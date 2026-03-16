@@ -44,6 +44,9 @@ function NavBar() {
               <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/exames" && "border-bottom border-danger"}`} to="/exames">Exames</Link>
             </li>
             <li className="nav-item">
+              <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/medicos" && "border-bottom border-danger"}`} to="/medicos">Médicos</Link>
+            </li>
+            <li className="nav-item">
               <Link onClick={closeMenu} className={`nav-link ${location.pathname === "/atendimentos" && "border-bottom border-danger"}`} to="/atendimentos">Atendimentos</Link>
             </li>
             <li className="nav-item">

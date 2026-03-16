@@ -1,6 +1,6 @@
 import "./dashclient.css"
 
-function DashClient() {
+function DashClient({clients}) {
     return (
         <div className="row g-4">
             <div className="col-12 col-md-6 col-lg-3">
@@ -10,7 +10,7 @@ function DashClient() {
                         <i className="bi bi-people text-danger"></i>
                     </div>
                     <div className="my-2">
-                        <p><strong className="fs-2 ">5</strong></p>
+                        <p><strong className="fs-2 ">{clients.length}</strong></p>
                         <small className="text-muted">Clientes cadastrados</small>
                     </div>
                 </div>

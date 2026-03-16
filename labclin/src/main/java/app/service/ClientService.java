@@ -18,12 +18,14 @@ public class ClientService {
 
     public String save(Client client){
         this.verification(client);
+        this.verificationStatus(client);
         client.setId(null);
         this.clientRepository.save(client);
         return "Cliente Adicionado Com Sucesso!";
     }
     public String update(Client client, Long id){
         this.verification(client);
+        this.verificationStatus(client);
         client.setId(id);
         this.clientRepository.save(client);
         return "Cliente Atualizado com Sucesso!";
@@ -35,6 +37,7 @@ public class ClientService {
     public List<Client> listAll(){
         return this.clientRepository.findAllByOrderByNameAsc();
     }
+
     public Client findById(Long id){
         Optional<Client> client = this.clientRepository.findById(id);
         return client.get();
@@ -47,15 +50,30 @@ public class ClientService {
         else if(client.getBirthDate() == null){
             throw new RuntimeException("Ensira a Data De Nascimento do Paciente");
         }
-        else if(!(client.getCPF() == null) && (client.getCPF().length() != 11)  ){
+        else if(client.getCPF() == null || client.getCPF().equals("")){
+            throw new RuntimeException("Insira o CPF do Cliente");
+        }
+        else if(client.getCPF().length() != 11){
             throw new RuntimeException("Insira um CPF válido");
         }
-        else if(!(client.getTelephone() == null) && (client.getTelephone().length() != 11)){
+        else if(client.getTelephone() == null){
+            throw new RuntimeException("Insira o Telefone Do CLiente!");
+        }
+        else if(client.getTelephone().length() != 11){
             throw new RuntimeException("Insira Um telefone Com Formato Válido");
         }
         else if(client.getBirthDate().isAfter(LocalDate.now())){
             throw new RuntimeException("Insira um Data de Nascimento válida");
         }
+    }
 
+    public void verificationStatus(Client client){
+        if(client.getStatus() == null){
+            client.setStatus("REGULAR");
+        }
+    }
+
+    public List<Client> lastClients (){
+        return null;
     }
 }

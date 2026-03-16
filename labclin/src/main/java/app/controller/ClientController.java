@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
-@CrossOrigin("https://labclin-fawn.vercel.app")
+@CrossOrigin("*")
 public class ClientController {
 
     @Autowired
@@ -41,7 +41,6 @@ public class ClientController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         try{
-            System.out.println("ID PARA SER DELETADO:"+id);
             String msg = this.clientService.delete(id);
             return new ResponseEntity<String>(msg,HttpStatus.OK);
         } catch (Exception e) {

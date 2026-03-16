@@ -1,6 +1,6 @@
 import './listClient.css'
 import ModalNewClient from '../ModalNewClient/ModalNewClient';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { deleteCLient } from '../../service/ClientService';
 import Swal from 'sweetalert2';
 import { formatarCPF, formatarTelefone } from '../../utils/masks';
@@ -46,6 +46,8 @@ function ListClient({clients, carregarUsuarios}) {
         
     }
 
+
+
     return (
         <div className="bg-white rounded-4 border border-2 border-secondary-subtle shadow-sm p-4 gap-4">
             <div className="row g-4">
@@ -79,6 +81,8 @@ function ListClient({clients, carregarUsuarios}) {
                             <th>CPF</th>
                             <th>Data de Nascimento</th>
                             <th>Telefone</th>
+                            <th>Afiliação</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -91,6 +95,8 @@ function ListClient({clients, carregarUsuarios}) {
                                     <td>{formatarCPF(client?.CPF)  || "-"}</td>
                                     <td>{formatarData(client.birthDate)|| "-"}</td>
                                     <td>{formatarTelefone(client?.telephone) || "-"}</td>
+                                    <td>{client.name_mae || "Não Informado"}</td>
+                                    <td className='text-center'><span className={`bagde rounded-pill p-1 ${client.status === "REGULAR"? "text-bg-success":"text-bg-warning"}`}>{client.status || "não informado"}</span></td>
                                     <td className="d-flex gap-4 justify-content-end">
                                             <button onClick={()=> onEdit(client)} data-bs-toggle="modal" data-bs-target="#modalNewClient" className="btn btn-client btn-outline-primary rounded-4"><i className="bi bi-pencil-square"></i></button>
                                             <button onClick={()=> deleteById(client.id)} className="btn btn-client btn-outline-danger rounded-4"><i className="bi bi-trash"></i></button>

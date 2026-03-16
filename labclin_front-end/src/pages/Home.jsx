@@ -2,11 +2,11 @@ import Dashboard from "../components/dashboard/dashboard"
 import TableDashboard from "../components/tableDashboard/tableDashboard"
 import Tasks from "../components/tasks/Tasks"
 
-function Home({carregarUsuarios,getAllAtendimentos,getAllExams,clients,exams,setEditAtend}){
+function Home({carregarUsuarios,getAllAtendimentos,getAllExams,clients,exams,setEditAtend,atendimentos}){
 
     return(
         <div className="d-flex flex-column gap-5 container-fluid">
-            <Dashboard/>
+            <Dashboard clients={clients} atendimentos={atendimentos}/>
             <div className="row g-4">
                 <div className="col-12 col-md-6 col-lg-7" >
                      <TableDashboard/>

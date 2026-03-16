@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AgendamentoCard from "../agendamentoCard/AgendamentoCard";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 
-function ListService({atendimentos,clients,exams,getAllAtendimentos,editAtend,setEditAtend}) {
+function ListService({atendimentos,clients,exams,getAllAtendimentos,editAtend,setEditAtend,medics}) {
 
 const [pesquisa,setPesquisa] = useState("")
 
@@ -43,7 +43,8 @@ const filtrarStatus = (status) => {
           <i className="bi bi-plus"></i> Novo Atendimento
         </button>
       </div>
-      <ModalNewAtendimento clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/>
+      <ModalNewAtendimento clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}medics={medics}/>
+      
       <div className="border border-2 shadow-sm p-3 rounded-3 bg-white">
 
         <div className="d-flex flex-wrap justify-content-between align-items-center ">

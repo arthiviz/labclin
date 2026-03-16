@@ -9,7 +9,7 @@ function Pacientes({clients,carregarUsuarios}) {
         
     return (
         <div className="d-flex flex-column gap-4 container-fluid">
-            <DashClient/>
+            <DashClient clients={clients}/>
             <FormClient carregarUsuarios = {carregarUsuarios}/>
             <ListClient clients = {clients} carregarUsuarios={carregarUsuarios}/>
             <TableClient/>

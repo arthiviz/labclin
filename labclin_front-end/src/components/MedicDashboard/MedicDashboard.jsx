@@ -1,16 +1,16 @@
-import "./dashboard.css"
+import "./MedicDashboard.css"
 
-function Dashboard({clients,atendimentos}) {
+function MedicDashboard({medics}) {
     return (
         <div className="row g-4">
             <div className="col-lg-3 col-md-6 col-12">
                 <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                     <div className="d-flex justify-content-between align-items-center">
-                        <strong>Atendimentos Hoje</strong>
+                        <strong>Total de Médicos</strong>
                         <i className="bi bi-activity text-danger"></i>
                     </div>
                     <div className="my-4">
-                        <p><strong className="fs-2">23</strong></p>
+                        <p><strong className="fs-2">{medics.length}</strong></p>
                         <small className="text-muted">+12% desde ontem</small>
                     </div>
                 </div>
@@ -18,11 +18,11 @@ function Dashboard({clients,atendimentos}) {
             <div className="col-12 col-md-6 col-lg-3">
                 <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                     <div className="d-flex justify-content-between align-items-center">
-                        <strong>Total de Pacientes</strong>
+                        <strong>Coletas com Médicos</strong>
                         <i className="bi bi-people text-danger"></i>
                     </div>
                     <div className="my-4">
-                        <p><strong className="fs-2">{clients.length}</strong></p>
+                        <p><strong className="fs-2">2</strong></p>
                         <small className="text-muted">+180 este mês</small>
                     </div>
                 </div>
@@ -30,11 +30,11 @@ function Dashboard({clients,atendimentos}) {
             <div className="col-12 col-md-6 col-lg-3">
                 <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                     <div className="d-flex justify-content-between align-items-center">
-                        <strong>Coletas Realizadas</strong>
+                        <strong>Média de Médico Por Coleta</strong>
                         <i className="bi bi-fire text-danger"></i>
                     </div>
                     <div className="my-4">
-                        <p><strong className="fs-2">{atendimentos.length}</strong></p>
+                        <p><strong className="fs-2">4</strong></p>
                         <small className="text-muted">Este mês</small>
                     </div>
                 </div>
@@ -42,11 +42,11 @@ function Dashboard({clients,atendimentos}) {
             <div className="col-12 col-md-6 col-lg-3">
                 <div className="border border border-danger p-4 rounded-4 bg-white cardDash">
                     <div className="d-flex justify-content-between align-items-center">
-                        <strong>Dias Abertos</strong>
+                        <strong>Médico mais Frequentado</strong>
                         <i className="bi bi-graph-up-arrow text-danger"></i>
                     </div>
                     <div className="my-4">
-                        <p><strong className="fs-2">20</strong></p>
+                        <p><strong className="fs-2">Adolfo Pires</strong></p>
                         <small className="text-muted">+2.1% desde o último mês</small>
                     </div>
                 </div>
@@ -64,4 +64,4 @@ function Dashboard({clients,atendimentos}) {
         </div>
     );
 }
-export default Dashboard;
+export default MedicDashboard;

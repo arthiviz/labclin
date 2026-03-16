@@ -21,13 +21,16 @@ public class Client {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(length = 11, unique = true)
+    @Column(length = 11, unique = true, nullable = false)
     private String CPF;
     private String email;
-    @Column(length = 11)
+    @Column(length = 11,nullable = false)
     private String telephone;
     private String address;
-    @NotNull
+    @Column(nullable = false)
     private LocalDate birthDate;
+    private String status;
+    private String name_mae;
+    private String observation;
 
 }
