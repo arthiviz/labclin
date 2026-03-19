@@ -2,8 +2,11 @@ import {  useEffect, useRef, useState } from "react";
 import { createClient, updateClient } from "../../service/ClientService";
 import Swal from "sweetalert2";
 import { formatarCPF, formatarTelefone, noDigits } from "../../utils/masks";
+import { useClients } from "../../contexts/ClientContext";
 
-function FormClient({carregarUsuarios,editClient}) {
+function FormClient({editClient}) {
+
+    const {carregarUsuarios} = useClients();
 
     const name = useRef();
     const CPF = useRef();
@@ -11,6 +14,8 @@ function FormClient({carregarUsuarios,editClient}) {
     const email = useRef();
     const birthDate = useRef();
     const adress = useRef();
+    const name_mae = useRef()
+    const observation = useRef()
     const[loading,setLoading] = useState(false)
 
 
@@ -46,26 +51,28 @@ function FormClient({carregarUsuarios,editClient}) {
 
 
     const handleSave = async () => {
-        console.log("nome:",name.current.value)
         const dados = {
             name: name.current.value,
             CPF: noDigits(CPF.current.value),
             telephone: noDigits(telephone.current.value),
             email: email.current.value,
             birthDate: birthDate.current.value,
-            adress: adress.current.value
+            adress: adress.current.value,
+            name_mae: name_mae.current.value,
+            observation: observation.current.value
         };
 
         try {
             setLoading(true)
             if (editClient) {
-                await updateClient(dados.name,dados.CPF,dados.telephone,dados.email,dados.birthDate,dados.adress,editClient.id)
+                console.log(editClient.id)
+                await updateClient(dados,editClient.id)
                 Swal.fire("Atualizado!", "Paciente atualizado com sucesso.", "success");
                 carregarUsuarios();
                 limparFormulario();
             } else {
                 // LÓGICA DE CRIAÇÃO
-                await createClient(dados.name, dados.CPF, dados.telephone, dados.email, dados.birthDate, dados.adress);
+                await createClient(dados);
                 Swal.fire("Sucesso!", "Paciente cadastrado com sucesso.", "success");
                 carregarUsuarios();
                 limparFormulario();
@@ -92,6 +99,8 @@ function FormClient({carregarUsuarios,editClient}) {
         email.current.value = "";
         birthDate.current.value = "";
         adress.current.value = "";
+        name_mae.current.value ="";
+        observation.current.value = "";
     };
 
     
@@ -113,7 +122,7 @@ function FormClient({carregarUsuarios,editClient}) {
                             <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="João da Silva" ref={name}/>
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label fw-bold">CPF</label>
+                            <label className="form-label fw-bold">CPF*</label>
                             <input type="text" className="form-control border-secondary-subtle bg-light" name="cpf" placeholder="000.000.000-00" ref={CPF} onChange={handleChange}/>
                         </div>
                     </div>
@@ -121,7 +130,7 @@ function FormClient({carregarUsuarios,editClient}) {
                     
                     <div className="row mb-3">
                         <div className="col-md-6">
-                            <label className="form-label fw-bold">Telefone</label>
+                            <label className="form-label fw-bold">Telefone*</label>
                             <input type="text" className="form-control border-secondary-subtle bg-light" name="phone" placeholder="(00) 00000-0000" ref={telephone} onChange={handleChange}/>
                         </div>
                         <div className="col-md-6">
@@ -141,10 +150,20 @@ function FormClient({carregarUsuarios,editClient}) {
                             <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="Rua, número, bairro" ref={adress}/>
                         </div>
                     </div>
+                    <div className="row mb-4">
+                        <div className="col-md-6">
+                            <label className="form-label fw-bold">Nome da Mãe</label>
+                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="Maria da Silva" ref={name_mae}/>
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label fw-bold">Descrição</label>
+                            <input type="text" className="form-control border-secondary-subtle bg-light" placeholder="Descrição/Detalhes" ref={observation}/>
+                        </div>
+                    </div>
 
                     {loading ?(
-                        <button onClick={handleSave} className="btn btn-danger px-4 fw-bold">
-                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <button className="btn btn-danger px-4 fw-bold">
+                            <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
                             <span role="status">Carregando...</span>
                         </button>
                     ):(

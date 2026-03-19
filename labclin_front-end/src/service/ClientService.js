@@ -4,25 +4,29 @@ export function listAllClients(){
     return api.get("/client/findAll")
 }
 
-export function createClient(name,CPF,telephone,email,birthDate,adress){
+export function createClient(dados){
     return api.post("/client/save", {
-        name,
-        CPF,
-        email,
-        telephone,
-        birthDate,
-        "address":adress
+        "name":dados.name,
+        "CPF" : dados.CPF,
+        "email": dados.email,
+        "telephone": dados.telephone,
+        "birthDate": dados.birthDate,
+        "address":dados.adress,
+        "name_mae": dados.name_mae,
+        "observations": dados.observations
     })
 }
 
-export function updateClient(name,CPF,telephone,email,birthDate,adress,id){
+export function updateClient(dados,id){
     return api.put(`/client/update/${id}`,{
-        name,
-        CPF,
-        telephone,
-        email,
-        birthDate,
-        "address":adress
+        "name":dados.name,
+        "CPF" : dados.CPF,
+        "email": dados.email,
+        "telephone": dados.telephone,
+        "birthDate": dados.birthDate,
+        "address":dados.adress,
+        "name_mae": dados.name_mae,
+        "observations": dados.observations
     })
 }
 

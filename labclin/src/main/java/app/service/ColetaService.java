@@ -1,7 +1,9 @@
 package app.service;
 
+import app.entity.Client;
 import app.entity.Coleta;
 import app.entity.Exam;
+import app.repository.ClientRepository;
 import app.repository.ColetaRepository;
 import app.repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +18,22 @@ public class ColetaService {
 
     @Autowired
     ColetaRepository coletaRepository;
+    @Autowired
+    ClientService clientService;
 
     public String save(Coleta coleta){
+        coleta.setId(null);
         this.verification(coleta);
         this.verificationStatus(coleta);
-
-        coleta.setId(null);
+        this.setStatusClient(coleta);
         this.coletaRepository.save(coleta);
         return "Coleta Adicionado Com Sucesso!";
 
     }
     public String update(Coleta coleta, Long id){
-        this.verificationStatus(coleta);
-        this.verification(coleta);
         coleta.setId(id);
+        this.verification(coleta);
+        this.setStatusClient(coleta);
         this.coletaRepository.save(coleta);
         return "Coleta Atualizado com Sucesso!";
     }
@@ -38,7 +42,7 @@ public class ColetaService {
         return "Coleta Deletado Com Sucesso!";
     }
     public List<Coleta> listAll(){
-        return this.coletaRepository.findAll();
+        return this.coletaRepository.findAllByOrderByIdDesc();
     }
     public Coleta findById(Long id){
         Optional<Coleta> exam = this.coletaRepository.findById(id);
@@ -50,10 +54,16 @@ public class ColetaService {
             throw new RuntimeException("Selecione o Cliente Da Coleta");
         }
 
+        else if(coleta.getId() == null && coleta.getClient().getStatus().equalsIgnoreCase("PENDENTE")){
+            throw new RuntimeException("O Cliente Selecionado Está Em Pendência Fincanceira!");
+        }
+
         else if(coleta.getExams() == null || coleta.getExams().isEmpty()){
             throw  new RuntimeException("A Coleta Deve ter Pelo menos um exame");
         }
-
+        else if(coleta.getConvenio() == null || coleta.getConvenio().equals("null")){
+            throw new RuntimeException("Selecione o Convênio da Coleta");
+        }
         else if(coleta.getDate() == null){
             throw new RuntimeException(("Selecione a Data Da Coleta"));
         }
@@ -84,4 +94,15 @@ public class ColetaService {
         }
 
     }
+    public void setStatusClient(Coleta coleta){
+        double resto = coleta.getTotal() - coleta.getTotal_pay();
+        if(resto == 0){
+            coleta.getClient().setStatus("REGULAR");
+        }
+        else{
+            coleta.getClient().setStatus("PENDENTE");
+        }
+        this.clientService.update(coleta.getClient(),coleta.getClient().getId());
+    }
+
 }

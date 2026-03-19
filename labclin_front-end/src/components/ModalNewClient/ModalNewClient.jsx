@@ -1,6 +1,6 @@
 import FormClient from "../formClient/FormClient"
 
-function ModalNewClient({editClient, carregarUsuarios}) {
+function ModalNewClient({editClient}) {
 
     return (
         <div className="modal fade" id="modalNewClient" tabIndex="-1">
@@ -11,7 +11,7 @@ function ModalNewClient({editClient, carregarUsuarios}) {
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                     <div className="modal-body">
-                        <FormClient  editClient={editClient} carregarUsuarios={carregarUsuarios}/>
+                        <FormClient  editClient={editClient}/>
                     </div>
                 </div>
             </div>

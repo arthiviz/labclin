@@ -4,8 +4,11 @@ import { deleteAtendimento, updateAtendimento } from '../../service/Atendimento'
 import Swal from 'sweetalert2';
 import ModalNewAtendimento from '../ModalNewAtendimento/ModalNewAtendimento';
 import { formatarCPF, formatarData, formatarTelefone } from '../../utils/masks';
+import { useAtendimento } from '../../contexts/AtendimentoContext';
 
-const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
+const AgendamentoCard = ({ atendimento,setEditAtend }) => {
+
+  const {carregarAtendimentos} = useAtendimento();
 
   const[loading,setLoading] = useState(false)
 
@@ -23,7 +26,7 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
                     .then(response=>{
                       console.log(response)
                       Swal.fire("Removida!", "Coleta Removida com Sucesso.", "success");
-                      getAllAtendimentos()
+                      carregarAtendimentos()
                     }).catch(erro =>{
                       console.log(erro)
                       Swal.fire("Erro!", "Erro ao Remover Coleta", "error");
@@ -39,7 +42,7 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
       setLoading(true)
       const response = await updateAtendimento(atend,atend.id)
       Swal.fire("Sucesso!", "Status Atualizado com Sucesso", "success");
-      getAllAtendimentos()
+      carregarAtendimentos()
     }catch(erro){
       console.log(erro)
       Swal.fire("Erro!", "Erro ao Atualizar Status", "error");
@@ -95,14 +98,36 @@ const AgendamentoCard = ({ atendimento,getAllAtendimentos,setEditAtend }) => {
             <span className="fw-semibold small">{formatarTelefone(atendimento.client.telephone)}</span>
           </div>
 
+          
+            <div className="d-flex align-items-center p-2 rounded-3 bg-light">
+            <i className="bi bi-prescription2 me-3 ms-2 text-primary"></i>
+              {atendimento.medics && atendimento.medics.length>0 ?(
+                  atendimento.medics.map((medic,index)=>(
+                    <div key={medic.id || index}>
+                      <p className="mb-0 fw-bold small">{medic.name}</p>
+                      <small className="text-muted">{medic.CRM}</small>
+                    </div>
+                  ))
+              ):(
+                <span>Não informado</span>
+              )}
+            
+          </div>
+
+          <div className="d-flex align-items-center p-2 rounded-3 bg-light">
+            <i className="bi bi-hospital me-3 ms-2 text-secondary"></i>
+            <span>{atendimento.convenio || "Não informado"}</span>
+          </div>
+          
+
           <div className="d-flex align-items-center p-2 rounded-3 bg-light">
             <i className="bi bi-calendar-event me-3 ms-2 text-danger"></i>
             <span className="fw-semibold small">{formatarData(atendimento.date)}</span>
           </div>
 
           <div className="d-flex align-items-center p-2 rounded-3 bg-light">
-            <i className="bi bi-currency-dollar me-3 ms-2 text-primary"></i>
-            <span className="fw-semibold small">R${atendimento.total || "não informado"}</span>
+            <i className="bi bi-currency-dollar me-3 ms-2 text-success"></i>
+            <span className="fw-semibold small">R${atendimento.total}/R${atendimento.total_pay}</span>
           </div>
 
           

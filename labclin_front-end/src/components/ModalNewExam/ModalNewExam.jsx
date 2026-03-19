@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { deleteExam, saveExam, updateExam } from "../../service/ExamService";
+import { useExams } from "../../contexts/ExamContext";
 
-function ModalNewExam({carregarExames,editExam,setEditExam}) {
+function ModalNewExam({editExam,setEditExam}) {
+
+    const {carregarExames} = useExams();
 
     const nameExam = useRef()
     const typeExam = useRef()
     const preco = useRef()
     const description = useRef()
 
-    const[loading,seLoading] = useState(false)
+    const[loading,setLoading] = useState(false)
 
     useEffect(()=>{
         if(editExam){
@@ -37,16 +40,17 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
             preco: preco.current.value,
             description: description.current.value
         }
+        setLoading(true)
         try{
             if(editExam){
                 await updateExam(dados.name,dados.typeExam,dados.preco,dados.description,editExam.id)
                 Swal.fire("Atualizado!", "Exame Atualizado com Sucesso.", "success");
-                carregarExames();
+                carregarExames(true);
                 limparFormulario()
             }else{
                 await saveExam(dados.name,dados.typeExam,dados.preco,dados.description)
                 Swal.fire("Adicionado!", "Exame Adicionado com Sucesso.", "success");
-                carregarExames();
+                carregarExames(true);
                 limparFormulario()
             }
         }catch(erro){
@@ -56,6 +60,8 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
                 : "Erro desconhecido ao salvar";
             
             Swal.fire("Erro!", mensagemServidor, "error");
+        }finally{
+            setLoading(false)
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exam")
-@CrossOrigin("https://labclin-fawn.vercel.app")
+@CrossOrigin("*")
 public class ExamController {
 
     @Autowired

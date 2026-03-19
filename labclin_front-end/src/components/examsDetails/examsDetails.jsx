@@ -1,4 +1,9 @@
-function ExamsDetails({exams}) {
+import { useExams } from "../../contexts/ExamContext";
+
+function ExamsDetails() {
+
+    const {exams} = useExams();
+    
     return (
         <div className="card border border-danger rounded-4 overflow-hidden">
             {/* Cabeçalho Vermelho */}

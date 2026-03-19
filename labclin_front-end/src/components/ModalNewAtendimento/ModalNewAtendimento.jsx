@@ -3,27 +3,41 @@ import { createAtendimento, updateAtendimento } from "../../service/Atendimento"
 import Swal from "sweetalert2";
 import Atendimentos from "../../pages/Atendimentos";
 import { formatarCPF, formatarData } from "../../utils/masks";
+import { useClients } from "../../contexts/ClientContext";
+import { useExams } from "../../contexts/ExamContext";
+import { useAtendimento } from "../../contexts/AtendimentoContext";
+import { useMedics } from "../../contexts/Medic";
 
-function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEditAtend}) {
+function ModalNewAtendimento({editAtend,setEditAtend}) {
+
+    const {clients} = useClients();
+    const {exams} = useExams();
+    const {carregarAtendimentos} = useAtendimento();
+    const {medics} = useMedics();
 
     const date = useRef()
     const observations = useRef()
     const payment_type = useRef()
     const total_pay = useRef()
+    const convenio = useRef()
 
     const[loading,setLoading] = useState(false)
 
     const [buscaClient,SetBuscaClient] = useState("")
     const[buscaExam,setBuscaExam] = useState("")
+    const[buscaMedic,setBuscaMedic] = useState("")
 
     const [mostrarResultadoExam,setMostrarResultadoExam] = useState(false)
     const [mostrarResultadoClient,setMostrarResultadoClient] = useState(false)
+    const [mostrarResultadoMedic,setMostrarResultadoMedic] = useState(false)
 
     const [examsSelecionados,setExamsSelecionados] = useState([])
     const [clientSelecionado,setClientSelecionado] = useState(null)
+    const[medicsSelecionados,setMedicsSelecionados] = useState([])
 
     const clientsFiltrados = clients?.filter(client => client.name.toLowerCase().includes(buscaClient.toLowerCase()))
     const examsFiltrados = exams?.filter(exam => exam.name.toLowerCase().includes(buscaExam.toLocaleLowerCase()))
+    const medicsFiltrados = medics?.filter(medic => medic.name.toLocaleLowerCase().includes(buscaMedic.toLocaleLowerCase()))
 
     const [valorTotal,setValorTotal] = useState(0)
 
@@ -38,11 +52,23 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
     const removeExam = (id) =>{
         setExamsSelecionados(examsSelecionados.filter(exam => exam.id !== id))
     }
+    const removerMedic = (id)=>{
+        setMedicsSelecionados(medicsSelecionados.filter(medic => medic.id !== id))
+    }
+
+    const adicionarMedic = (medic)=>{
+        if(!medicsSelecionados.find(m => m.id === medic.id)){
+            setMedicsSelecionados([...medicsSelecionados,medic])
+        }
+        setBuscaMedic("")
+        setMostrarResultadoMedic(false)
+    }
 
     const limpar_form = ()=>{
 
         date.current.value = ""
         observations.current.value = ""
+        convenio.current.value = null
         payment_type.current.value = null
         total_pay.current.value = ""
         setClientSelecionado(null)
@@ -63,23 +89,25 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
             payment_type: payment_type.current.value,
             total_pay: total_pay.current.value,
             status:null,
+            medics: medicsSelecionados,
+            convenio: convenio.current.value
         }
 
         try{
             setLoading(true)
             if(editAtend){
+                console.log("dados dos medicos:",dados.medics)
+                dados.status = editAtend.status;
                 const response = await updateAtendimento(dados,editAtend.id)
-                console.log(response)
                 Swal.fire("Editado!", "Coleta Editada com Sucesso.", "success");
                 limpar_form()
-                getAllAtendimentos()
+                carregarAtendimentos()
             }else{
-                console.log(dados.payment_type)
+                console.log("dados dos medicos:",dados.medics)
                 const response = await createAtendimento(dados)
-                console.log(response)
                 Swal.fire("Adicionado!", "Coleta Adicionada com Sucesso.", "success");
                 limpar_form()
-                getAllAtendimentos()
+                carregarAtendimentos()
             }
 
             
@@ -106,11 +134,13 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
     useEffect(() => {
         if(editAtend){
+            console.log(editAtend)
             SetBuscaClient(editAtend.client.name)
             setClientSelecionado(editAtend.client)
             setExamsSelecionados(editAtend.exams)
             payment_type.current.value = editAtend.payment_type
             total_pay.current.value = editAtend.total_pay
+            convenio.current.value = editAtend.convenio
             setValorTotal(editAtend.total)
             date.current.value = editAtend.date.substring(0, 10);
         }else{
@@ -216,8 +246,12 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
                                     <ul className="p-0 m-1 list-group overflow-auto" style={{maxHeight: 100}}>
                                         {examsSelecionados.map((exam,index)=>(
                                             <li key={exam.id || index} className="d-flex justify-content-between border-bottom">
-                                                {exam.name}
-                                                <button onClick={()=>{removeExam(exam.id)}} className="btn border border-0 text-danger">---</button>
+                                                
+                                                <div>{exam.name}</div>
+                                                <div className="text-success">
+                                                    R${exam.preco}
+                                                    <button onClick={()=>{removeExam(exam.id)}} className="btn border border-0 text-danger">---</button>
+                                                </div>
                                             </li>
                                         ))}
                                     </ul>
@@ -226,6 +260,59 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
                         </div>
                     )}
 
+                    <div className="row mb-3">
+                        <div className="col-md-6 position-relative">
+                            <div>
+                                <label className="form-label fw-bold">Nome Dos Médicos</label>
+                            </div>
+                            <input type="text" className="form-control border-secondary-subtle bg-light"placeholder="Joao Da Silva" value={buscaMedic} onChange={(valor) =>{
+                                    setBuscaMedic(valor.target.value)
+                                    setMostrarResultadoMedic(true)
+                                }}
+                                onFocus={()=> setMostrarResultadoMedic(true)}/>
+
+                                {mostrarResultadoMedic && buscaMedic.length > 0 && (
+                                <ul className="list-group position-absolute w-100 shadow-sm" style={{ zIndex: 1000, maxHeight: '200px', overflowY: 'auto' }}>
+                                    {medicsFiltrados?.length > 0 ?(
+                                        medicsFiltrados.map((medic,index) =>(
+                                            <li key={medic.id || index} className="list-group-item list-group-item-action" style={{cursor:"pointer"}} onClick={()=>{
+                                                adicionarMedic(medic)
+                                            }}>
+                                                {medic.name} <br />
+                                                <small>{medic.CRM}</small>
+                                            </li>
+                                        ))
+                                    ) : <li className="list-group-item list-group-item-action">Nenhum exame encontrado</li>}
+                                </ul>
+                            )}
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label fw-bold">Tipo de Convênio*</label>
+                            <select name="convenio" ref={convenio} id="convenio" className="form-select border-secondary-subtle bg-light">
+                                <option value="null">Selecione o tipo de convênio</option>
+                                <option value="particular">Particular</option>
+                                <option value="prefeitura">Prefeitura</option>
+                                <option value="funerária">Funerária</option>
+                                <option value="cortesia">Cortesia</option>
+                            </select>
+                        </div>
+                        {medicsSelecionados.length > 0 && (
+
+                            <ul className="p-0 m-1 list-group overflow-auto" style={{maxHeight: 100}}>
+                                {medicsSelecionados.map((medic,index)=>(
+                                    <li key={medic.id || index} className="d-flex justify-content-between border-bottom">
+                                        
+                                        <div>{medic.name}</div>
+                                        <div className="fw-bold">
+                                            {medic.CRM}
+                                            <button onClick={()=>{removerMedic(medic.id)}} className="btn border border-0 text-danger">---</button>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>  
+                        )}
+                    </div>
+
                     
                     <div className="row mb-3">
                         <div className="col-md-6">
@@ -233,6 +320,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
                             <input type="date" ref={date} className="form-control border-secondary-subtle bg-light" />
                         </div>
                         <div className="col-md-6">
+                            
                             <label className="form-label fw-bold">Tipo de Pagamento*</label>
                             <select name="tipoPagamento" ref={payment_type} id="tipoPagamento" className="form-select border-secondary-subtle bg-light">
                                 <option value="null">Selecione o tipo de pagamento</option>
@@ -253,7 +341,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
                     <div className="row mb-4">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Total*</label>
-                            <input type="text" value={valorTotal} onChange={(valor) => setValorTotal(Number(valor.target.value))} className="form-control border-secondary-subtle bg-light" placeholder="Valor Total" />
+                            <input type="text" value={valorTotal} onChange={(valor) => setValorTotal(Number(valor.target.value))} className="form-control border-secondary-subtle bg-light text-success" placeholder="Valor Total" />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Total Pago*</label>

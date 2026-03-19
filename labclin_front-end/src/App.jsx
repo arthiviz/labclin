@@ -6,70 +6,40 @@ import Pacientes from "./pages/Pacientes"
 import Exames from "./pages/Exames"
 import Atendimentos from "./pages/Atendimentos"
 import "./index.css"
-import { useEffect, useState } from "react"
-import { listAllClients } from "./service/ClientService"
-import { listAllExams } from "./service/ExamService"
-import { listAllAtendimentos } from "./service/Atendimento"
+import { useState } from "react"
 import Relatorios from "./pages/Relatorios"
 import ProtectRoute from "./components/protectRoute/ProtectRoute"
+import Medicos from "./pages/Medicos"
+import { AppProviders } from "./contexts/AppProviders"
+import InitData from "./components/initData/InitData"
 
 function App() {
 
-  const [clients, setClients] = useState([]);
-  const [exams,setExams] = useState([]);
-  const[atendimentos,setAtendimentos] = useState([])
   const[editAtend,setEditAtend] = useState()
   const [editExam,setEditExam] = useState()
+  const [editMedic,setEditMedic] = useState()
+
     
-      const getAllAtendimentos = async () =>{
-        listAllAtendimentos()
-        .then(response =>{
-          setAtendimentos(response.data.reverse());
-        }).catch(error =>{
-          console.error("Erro ao carregar atendimentos:", error);
-        });
-      }
-
-      const carregarUsuarios = () =>{
-          listAllClients()
-          .then(response => {
-            setClients(response.data);
-          }).catch(error => {
-            console.error("Erro ao carregar clientes:", error);
-          });
-        }
-
-        const getAllExams = async () =>{
-        listAllExams()
-        .then(response =>{
-            setExams(response.data)
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    }
-    
-      useEffect(()=>{
-        carregarUsuarios()
-        getAllExams()
-        getAllAtendimentos()
-      },[])
-
   return (
     <div className="min-vh-100 space-body bg-light">
-      <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<ProtectRoute> <Home clients={clients} exams={exams} carregarUsuarios={carregarUsuarios} getAllAtendimentos={getAllAtendimentos} getAllExams={getAllExams} setEditAtend={setEditAtend}/></ProtectRoute>} />
-              <Route path="/pacientes" element={<ProtectRoute> <Pacientes clients={clients} carregarUsuarios={carregarUsuarios}/></ProtectRoute>} />
-              <Route path="/exames" element={<ProtectRoute> <Exames exams={exams} getAllExams={getAllExams} editExam={editExam} setEditExam={setEditExam}/></ProtectRoute>} />
-              <Route path="/atendimentos" element={<ProtectRoute> <Atendimentos clients={clients} exams={exams} atendimentos={atendimentos} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}/></ProtectRoute>} />
-              <Route path="/relatorios" element={ <ProtectRoute><Relatorios/></ProtectRoute> }/>
-            </Route>
-          
-            <Route className="m-0 p-0" path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+      <AppProviders>
+          <InitData/>
+          <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<ProtectRoute> <Home setEditAtend={setEditAtend}/></ProtectRoute>} />
+                <Route path="/pacientes" element={<ProtectRoute> <Pacientes/></ProtectRoute>} />
+                <Route path="/exames" element={<ProtectRoute> <Exames editExam={editExam} setEditExam={setEditExam}/></ProtectRoute>} />
+                <Route path="/medicos" element={<Medicos editMedic={editMedic} setEditMedic={setEditMedic}/>}/>
+                <Route path="/atendimentos" element={<ProtectRoute> <Atendimentos editAtend={editAtend} setEditAtend={setEditAtend}/></ProtectRoute>} />
+                <Route path="/relatorios" element={ <ProtectRoute><Relatorios/></ProtectRoute> }/>
+              </Route>
+            
+              <Route className="m-0 p-0" path="/login" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </AppProviders>
+      
     </div>
   )
 }

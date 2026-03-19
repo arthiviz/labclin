@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("https://labclin-fawn.vercel.app")
+@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
@@ -34,8 +34,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request){
 
-        System.out.println("username"+request.username());
-        System.out.println("senha:"+request.password());
         UsernamePasswordAuthenticationToken userAndPassword = new UsernamePasswordAuthenticationToken(request.username(),request.password());
         Authentication authentication = authenticationManager.authenticate(userAndPassword);
 

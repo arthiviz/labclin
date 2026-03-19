@@ -1,6 +1,12 @@
+import { useAtendimento } from "../../contexts/AtendimentoContext";
+import { useClients } from "../../contexts/ClientContext";
 import "./dashboard.css"
 
 function Dashboard() {
+
+    const {clients} = useClients();
+    const {atendimentos} = useAtendimento();
+    
     return (
         <div className="row g-4">
             <div className="col-lg-3 col-md-6 col-12">
@@ -22,7 +28,7 @@ function Dashboard() {
                         <i className="bi bi-people text-danger"></i>
                     </div>
                     <div className="my-4">
-                        <p><strong className="fs-2">1.248</strong></p>
+                        <p><strong className="fs-2">{clients.length}</strong></p>
                         <small className="text-muted">+180 este mês</small>
                     </div>
                 </div>
@@ -34,7 +40,7 @@ function Dashboard() {
                         <i className="bi bi-fire text-danger"></i>
                     </div>
                     <div className="my-4">
-                        <p><strong className="fs-2">856</strong></p>
+                        <p><strong className="fs-2">{atendimentos.length}</strong></p>
                         <small className="text-muted">Este mês</small>
                     </div>
                 </div>

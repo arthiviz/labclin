@@ -14,6 +14,8 @@ export function createAtendimento(dados){
         "total": dados.total,
         "payment_type": dados.payment_type,
         "total_pay": dados.total_pay,
+        "medics": dados.medics,
+        "convenio": dados.convenio
     })
 }
 
@@ -31,5 +33,7 @@ export function updateAtendimento(dados,id){
         "total": dados.total,
         "payment_type": dados.payment_type,
         "total_pay": dados.total_pay,
+        "medics": dados.medics,
+        "convenio":dados.convenio
     })
 }
