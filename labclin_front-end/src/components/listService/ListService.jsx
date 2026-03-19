@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import AgendamentoCard from "../agendamentoCard/AgendamentoCard";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
+import { useAtendimento } from "../../contexts/AtendimentoContext";
 
-function ListService({atendimentos,clients,exams,getAllAtendimentos,editAtend,setEditAtend,medics}) {
+
+function ListService({editAtend,setEditAtend}) {
+
+const {atendimentos,loadingAtendimentos} = useAtendimento();
 
 const [pesquisa,setPesquisa] = useState("")
 
@@ -43,7 +47,7 @@ const filtrarStatus = (status) => {
           <i className="bi bi-plus"></i> Novo Atendimento
         </button>
       </div>
-      <ModalNewAtendimento clients={clients} exams={exams} getAllAtendimentos={getAllAtendimentos} editAtend={editAtend} setEditAtend={setEditAtend}medics={medics}/>
+      <ModalNewAtendimento editAtend={editAtend} setEditAtend={setEditAtend}/>
       
       <div className="border border-2 shadow-sm p-3 rounded-3 bg-white">
 
@@ -89,14 +93,23 @@ const filtrarStatus = (status) => {
 
       <div className="container-fluid p-0">
         <div className="row g-4">
-          {atendimentosFiltrados && atendimentosFiltrados.length > 0 ?(
-              atendimentosFiltrados.map((atendimento) => (
+          {loadingAtendimentos ?(
+            <div className="d-flex justify-content-center">
+                <div className="spinner-border text-danger" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            
+          ):(
+            atendimentosFiltrados && atendimentosFiltrados.length > 0 ?(
+                atendimentosFiltrados.map((atendimento) => (
                 <div key={atendimento.id} className="col-12 col-md-6 col-xl-4">
-                  <AgendamentoCard atendimento={atendimento} getAllAtendimentos={getAllAtendimentos} setEditAtend={setEditAtend}/>
+                  <AgendamentoCard atendimento={atendimento} setEditAtend={setEditAtend}/>
                 </div>
               ))
-          ):(
-            <h2 className="bg-white p-3 rounded-4 text-center">Nenhuma Coleta Encontrada</h2>
+            ):(
+                <h2 className="bg-white p-3 rounded-4 text-center">Nenhuma Coleta Encontrada</h2>
+            )
           )}
           
         </div>

@@ -2,8 +2,11 @@ import {  useEffect, useRef, useState } from "react";
 import { createClient, updateClient } from "../../service/ClientService";
 import Swal from "sweetalert2";
 import { formatarCPF, formatarTelefone, noDigits } from "../../utils/masks";
+import { useClients } from "../../contexts/ClientContext";
 
-function FormClient({carregarUsuarios,editClient}) {
+function FormClient({editClient}) {
+
+    const {carregarUsuarios} = useClients();
 
     const name = useRef();
     const CPF = useRef();

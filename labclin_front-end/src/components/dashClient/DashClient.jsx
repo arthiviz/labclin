@@ -1,6 +1,10 @@
+import { useClients } from "../../contexts/ClientContext";
 import "./dashclient.css"
 
-function DashClient({clients}) {
+function DashClient() {
+
+    const {clients} = useClients();
+
     return (
         <div className="row g-4">
             <div className="col-12 col-md-6 col-lg-3">

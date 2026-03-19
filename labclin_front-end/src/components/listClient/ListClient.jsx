@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { deleteCLient } from '../../service/ClientService';
 import Swal from 'sweetalert2';
 import { formatarCPF, formatarTelefone } from '../../utils/masks';
+import { useClients } from '../../contexts/ClientContext';
 
-function ListClient({clients, carregarUsuarios}) {
+function ListClient() {
+
+    const {clients, carregarUsuarios} = useClients();
 
     const [editClient,setEditClient] = useState();
 

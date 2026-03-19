@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { deleteExam, saveExam, updateExam } from "../../service/ExamService";
+import { useExams } from "../../contexts/ExamContext";
 
-function ModalNewExam({carregarExames,editExam,setEditExam}) {
+function ModalNewExam({editExam,setEditExam}) {
+
+    const {carregarExames} = useExams();
 
     const nameExam = useRef()
     const typeExam = useRef()
@@ -42,12 +45,12 @@ function ModalNewExam({carregarExames,editExam,setEditExam}) {
             if(editExam){
                 await updateExam(dados.name,dados.typeExam,dados.preco,dados.description,editExam.id)
                 Swal.fire("Atualizado!", "Exame Atualizado com Sucesso.", "success");
-                carregarExames();
+                carregarExames(true);
                 limparFormulario()
             }else{
                 await saveExam(dados.name,dados.typeExam,dados.preco,dados.description)
                 Swal.fire("Adicionado!", "Exame Adicionado com Sucesso.", "success");
-                carregarExames();
+                carregarExames(true);
                 limparFormulario()
             }
         }catch(erro){

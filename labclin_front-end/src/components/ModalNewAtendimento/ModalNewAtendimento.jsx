@@ -3,8 +3,17 @@ import { createAtendimento, updateAtendimento } from "../../service/Atendimento"
 import Swal from "sweetalert2";
 import Atendimentos from "../../pages/Atendimentos";
 import { formatarCPF, formatarData } from "../../utils/masks";
+import { useClients } from "../../contexts/ClientContext";
+import { useExams } from "../../contexts/ExamContext";
+import { useAtendimento } from "../../contexts/AtendimentoContext";
+import { useMedics } from "../../contexts/Medic";
 
-function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEditAtend,medics}) {
+function ModalNewAtendimento({editAtend,setEditAtend}) {
+
+    const {clients} = useClients();
+    const {exams} = useExams();
+    const {carregarAtendimentos} = useAtendimento();
+    const {medics} = useMedics();
 
     const date = useRef()
     const observations = useRef()
@@ -92,13 +101,13 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
                 const response = await updateAtendimento(dados,editAtend.id)
                 Swal.fire("Editado!", "Coleta Editada com Sucesso.", "success");
                 limpar_form()
-                getAllAtendimentos()
+                carregarAtendimentos()
             }else{
                 console.log("dados dos medicos:",dados.medics)
                 const response = await createAtendimento(dados)
                 Swal.fire("Adicionado!", "Coleta Adicionada com Sucesso.", "success");
                 limpar_form()
-                getAllAtendimentos()
+                carregarAtendimentos()
             }
 
             
@@ -125,6 +134,7 @@ function ModalNewAtendimento({clients,exams,getAllAtendimentos,editAtend,setEdit
 
     useEffect(() => {
         if(editAtend){
+            console.log(editAtend)
             SetBuscaClient(editAtend.client.name)
             setClientSelecionado(editAtend.client)
             setExamsSelecionados(editAtend.exams)

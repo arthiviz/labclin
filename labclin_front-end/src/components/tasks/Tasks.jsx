@@ -2,8 +2,10 @@ import "./tasks.css";
 import ModalNewAtendimento from "../ModalNewAtendimento/ModalNewAtendimento";
 import ModalNewClient from "../ModalNewClient/ModalNewClient";
 import ModalNewExam from "../ModalNewExam/ModalNewExam";
+import { useClients } from "../../contexts/ClientContext";
+import { useExams } from "../../contexts/ExamContext";
 
-function Tasks({carregarUsuarios,getAllExams,getAllAtendimentos,clients,exams,setEditAtend}) {
+function Tasks({setEditAtend}) {
 
   const logout = ()=>{
     localStorage.removeItem("token")
@@ -41,9 +43,9 @@ function Tasks({carregarUsuarios,getAllExams,getAllAtendimentos,clients,exams,se
           <i className="bi bi-box-arrow-left px-2"></i>Sair
         </button>
       </div>
-        <ModalNewClient carregarUsuarios={carregarUsuarios}/>
-        <ModalNewExam carregarExames={getAllExams} />
-        <ModalNewAtendimento clients={clients} exams={exams}  getAllAtendimentos={getAllAtendimentos} setEditAtend={setEditAtend}/>
+        <ModalNewClient/>
+        <ModalNewExam />
+        <ModalNewAtendimento setEditAtend={setEditAtend}/>
     </div>
   );
 }

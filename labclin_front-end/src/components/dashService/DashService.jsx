@@ -1,7 +1,9 @@
+import { useAtendimento } from "../../contexts/AtendimentoContext"
 import "./DashBoard.css"
 
-function DashService({atendimentos}) {
+function DashService() {
 
+const {atendimentos} = useAtendimento();
    
 const agendadosTotal = atendimentos?.filter(atend => atend.status.includes("agendado")).length
 const pendentesTotal = atendimentos?.filter(atend => atend.status.includes("pendente")).length

@@ -2,8 +2,11 @@ import { useState } from "react";
 import { deleteMedic } from "../../service/Medics";
 import Swal from "sweetalert2";
 import ModalNewMedic from "../ModalNewMedic/ModalNewMedic";
+import { useMedics } from "../../contexts/Medic";
 
-function MedicList({medics,carregarMedicos,setEditMedic,editMedic}){
+function MedicList({setEditMedic,editMedic}){
+
+    const {medics,carregarMedicos,loadingMedics} = useMedics();
     
     const [pesquisa,setPesquisa] = useState("")
     const medicosFiltrados = medics?.filter(medic => medic.name.toLowerCase().includes(pesquisa.toLowerCase()))
@@ -63,43 +66,51 @@ function MedicList({medics,carregarMedicos,setEditMedic,editMedic}){
                 </div>
             </div>
 
-            <div className="overflow-auto" style={{ maxHeight: "300px" }}>
-                <table className="table table-hover mt-3">
-                    {/* sticky-top faz o cabeçalho ficar parado enquanto o corpo rola */}
-                    <thead className="sticky-top bg-white" style={{ zIndex: 1 }}>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Especialização</th>
-                            <th>CRM</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {medicosFiltrados.length > 0 ?
+                        {loadingMedics ?(
+                            <div className="d-flex justify-content-center">
+                                <div className="spinner-border text-danger" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        ):(
+                            medicosFiltrados.length > 0 ?
 
-                            medicosFiltrados.map((medico,index) =>(
-                                <tr key={medico.id || index}>
-                                    <td>{medico.id}</td>
-                                    <td>{medico.name  || "-"}</td>
-                                    <td>{medico.especializacao || "-"}</td>
-                                    <td>{medico.CRM|| "-"}</td>
-                                    <td className="d-flex gap-4 justify-content-end">
+                            <div className="overflow-auto" style={{ maxHeight: "300px" }}>
+                                <table className="table table-hover mt-3">
+                                    {/* sticky-top faz o cabeçalho ficar parado enquanto o corpo rola */}
+                                    <thead className="sticky-top bg-white" style={{ zIndex: 1 }}>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Especialização</th>
+                                            <th>CRM</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {medicosFiltrados.map((medico,index) =>(
+                                            <tr key={medico.id || index}>
+                                                <td>{medico.id}</td>
+                                                <td>{medico.name  || "-"}</td>
+                                                <td>{medico.especializacao || "-"}</td>
+                                                <td>{medico.CRM|| "-"}</td>
+                                                <td className="d-flex gap-4 justify-content-end">
 
-                                            <button onClick={()=> onEdit(medico)} data-bs-toggle="modal" data-bs-target="#modalNewMedic" className="btn btn-client btn-outline-primary rounded-4"><i className="bi bi-pencil-square"></i></button>
-                                            <button onClick={()=> deleteMedicById(medico.id)} className="btn btn-client btn-outline-danger rounded-4"><i className="bi bi-trash"></i></button>
-                                        </td>
-                                </tr>
-                            ))
+                                                        <button onClick={()=> onEdit(medico)} data-bs-toggle="modal" data-bs-target="#modalNewMedic" className="btn btn-client btn-outline-primary rounded-4"><i className="bi bi-pencil-square"></i></button>
+                                                        <button onClick={()=> deleteMedicById(medico.id)} className="btn btn-client btn-outline-danger rounded-4"><i className="bi bi-trash"></i></button>
+                                                    </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
 
-
-                         : <tr className='w-100'>
+                         :
+                          <tr className='w-100'>
                             <td>Nenhum Medico Encontrado</td>
                             <td></td><td></td><td></td><td></td>
-                        </tr>}
-                    </tbody>
-                </table>
-            </div>
+                        </tr>)}
+                    
             <ModalNewMedic editMedic={editMedic} carregarMedicos={carregarMedicos} setEditMedic={setEditMedic}/>
             
         </div>  

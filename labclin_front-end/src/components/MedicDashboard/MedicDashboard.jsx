@@ -1,6 +1,9 @@
+import { useMedics } from "../../contexts/Medic";
 import "./MedicDashboard.css"
 
-function MedicDashboard({medics}) {
+function MedicDashboard() {
+
+    const {medics} = useMedics();
     return (
         <div className="row g-4">
             <div className="col-lg-3 col-md-6 col-12">

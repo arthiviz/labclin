@@ -1,6 +1,12 @@
+import { useAtendimento } from "../../contexts/AtendimentoContext";
+import { useClients } from "../../contexts/ClientContext";
 import "./dashboard.css"
 
-function Dashboard({clients,atendimentos}) {
+function Dashboard() {
+
+    const {clients} = useClients();
+    const {atendimentos} = useAtendimento();
+    
     return (
         <div className="row g-4">
             <div className="col-lg-3 col-md-6 col-12">

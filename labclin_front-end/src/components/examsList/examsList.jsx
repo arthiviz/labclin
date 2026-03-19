@@ -3,8 +3,11 @@ import ModalNewExam from "../ModalNewExam/ModalNewExam";
 import { useRef, useState } from "react";
 import { deleteExam } from "../../service/ExamService";
 import Swal from "sweetalert2";
+import { useExams } from "../../contexts/ExamContext";
 
-function ExamsList({exams,carregarExames,editExam,setEditExam}) {
+function ExamsList({editExam,setEditExam}) {
+
+    const {exams,carregarExames} = useExams();
     
     const [pesquisa,setPesquisa] = useState("")
 
