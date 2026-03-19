@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
-@CrossOrigin("*")
+@CrossOrigin("https://labclin-fawn.vercel.app")
 public class ClientController {
 
     @Autowired

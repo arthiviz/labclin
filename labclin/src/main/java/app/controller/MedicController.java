@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("https://labclin-fawn.vercel.app")
 @RequestMapping("/medic")
 public class MedicController {
 
